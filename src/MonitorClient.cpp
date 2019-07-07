@@ -5,8 +5,8 @@
 #include <iostream>
 #include <thread>
 #include <capnp/serialize.h>
-#include <string.capnp.h>
-#include <Common.h>
+#include <capnzero-base-msgs/string.capnp.h>
+#include <capnzero/Common.h>
 #include "MonitorClient.h"
 
 static void callback(capnp::FlatArrayMessageReader& reader)

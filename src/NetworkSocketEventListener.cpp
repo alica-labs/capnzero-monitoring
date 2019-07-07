@@ -3,7 +3,10 @@
 //
 
 
-#include <string.capnp.h>
+#include <capnzero-base-msgs/string.capnp.h>
+#include <capnzero/Common.h>
+#include <capnp/message.h>
+
 #include "NetworkSocketEventListener.h"
 
 NetworkSocketEventListener::NetworkSocketEventListener(void* zmqContext) : publisher(zmqContext)
