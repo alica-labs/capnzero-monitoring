@@ -2,8 +2,8 @@
 // Created by sst on 24.06.19.
 //
 
-#include <CapnZero.h>
-#include <string.capnp.h>
+#include <capnzero/CapnZero.h>
+#include <capnzero-base-msgs/string.capnp.h>
 #include "MonitoredPublisher.h"
 
 MonitoredPublisher::MonitoredPublisher(void* zmqContext, const std::string& groupName) :

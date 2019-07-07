@@ -6,8 +6,9 @@
 #include <zmqMonitoring.h>
 #include <zmq.h>
 #include <capnp/serialize.h>
-#include "../capnzero/include/string.capnp.h"
-#include "../capnzero/include/Common.h"
+#include <capnzero-base-msgs/string.capnp.h>
+#include <capnzero/Common.h>
+#include <thread>
 
 void callback(capnp::FlatArrayMessageReader& reader)
 {

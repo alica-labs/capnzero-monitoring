@@ -6,7 +6,7 @@
 #define ZMQMONITORING_MONITORCLIENT_H
 
 #include "monitor_config.h"
-#include <CapnZero.h>
+#include <capnzero/CapnZero.h>
 
 class MonitorClient
 {

@@ -3,6 +3,8 @@ project( capnzeroMonitoringLib VERSION 1.0.0 LANGUAGES CXX )
 
 add_compile_definitions( ZMQ_BUILD_DRAFT_API )
 
+add_subdirectory(submodules/capnzero/capnzero)
+
 set( SOURCES
      src/MonitoredPublisher.h
      src/MonitoredPublisher.cpp
@@ -19,18 +21,19 @@ add_library( ${PROJECT_NAME} ${SOURCES} )
 target_include_directories(${PROJECT_NAME}
                               PUBLIC
                                 $<INSTALL_INTERFACE:include>
-                                $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                                $<BUILD_INTERFACE:
+                                  ${CMAKE_CURRENT_SOURCE_DIR}/include
+                                  submodules/capnzero/capnzero/include>
                               PRIVATE
-                                ${CMAKE_CURRENT_SOURCE_DIR}/src
-                                ${CMAKE_CURRENT_SOURCE_DIR}/capnzero/include
+                                src
                            )
 
 target_link_libraries( ${PROJECT_NAME}
                           PRIVATE
                             pthread
                             zmq
-                            ${PROJECT_SOURCE_DIR}/capnzero/lib/libcapnzero.a
-                            ${PROJECT_SOURCE_DIR}/capnzero/lib/libcapnzero-base-msgs.a)
+                            capnzero
+                            capnzero-base-msgs)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
 

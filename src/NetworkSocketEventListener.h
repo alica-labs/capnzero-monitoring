@@ -6,8 +6,8 @@
 #define LIBZMQMONITORING_SOCKETEVENTLISTENER_H
 
 #include <string>
-#include <CapnZero.h>
-#include "../include/monitor_config.h"
+#include <capnzero/CapnZero.h>
+#include "monitor_config.h"
 
 class NetworkSocketEventListener
 {
