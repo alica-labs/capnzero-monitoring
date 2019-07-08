@@ -11,7 +11,7 @@
 class MockEventProxy : public EventProxy
 {
 public:
-  MOCK_METHOD1(notifyClient, void(const std::string&));
+  MOCK_METHOD1(notifyClient, void(const Event&));
 };
 
 #endif //CAPNZEROMONITORINGLIB_MOCKEVENTPROXY_H

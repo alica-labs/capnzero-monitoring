@@ -18,7 +18,7 @@ NetworkSocketEventListener::~NetworkSocketEventListener()
   delete proxy;
 }
 
-void NetworkSocketEventListener::notify(const std::string& message)
+void NetworkSocketEventListener::notify(const Event& event)
 {
-  proxy->notifyClient(message);
+  proxy->notifyClient(event);
 }

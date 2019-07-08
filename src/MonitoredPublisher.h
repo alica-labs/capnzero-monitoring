@@ -10,11 +10,11 @@
 class MonitoredPublisher
 {
 public:
-  MonitoredPublisher(void* zmqContext, const std::string& groupName);
+  explicit MonitoredPublisher(void* zmqContext);
 
   void bind(capnzero::CommType commType, const std::string& address);
 
-  void send(const std::string& message);
+  void send(const std::string& message, const std::string& groupName);
 
 private:
   capnzero::Publisher publisher;

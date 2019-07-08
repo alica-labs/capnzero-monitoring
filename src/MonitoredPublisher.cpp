@@ -5,22 +5,24 @@
 #include <capnzero/CapnZero.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include "MonitoredPublisher.h"
+#include "src/event/SendEvent.h"
+#include "src/event/BindEvent.h"
 
-MonitoredPublisher::MonitoredPublisher(void* zmqContext, const std::string& groupName) :
+MonitoredPublisher::MonitoredPublisher(void* zmqContext) :
 publisher(zmqContext), eventListener(new RelayEventProxy(zmqContext))
 {
-  publisher.setDefaultGroup(groupName);
-  eventListener.notify("LOG: new publisher on group " + groupName);
 }
 
 void MonitoredPublisher::bind(capnzero::CommType commType, const std::string& address)
 {
   publisher.bind(commType, address);
 
-  eventListener.notify("LOG: Publisher bound to address " + address + " with communication type " + std::to_string(commType));
+  BindEvent event(address, commType);
+
+  eventListener.notify(event);
 }
 
-void MonitoredPublisher::send(const std::string& message)
+void MonitoredPublisher::send(const std::string& message, const std::string& groupName)
 {
   capnp::MallocMessageBuilder builder;
   capnzero::String::Builder messageBuilder = builder.initRoot<capnzero::String>();
@@ -28,5 +30,7 @@ void MonitoredPublisher::send(const std::string& message)
 
   publisher.send(builder);
 
-  eventListener.notify("LOG: Publisher sent message \"" + message + "\"" );
+  SendEvent event(message, groupName);
+
+  eventListener.notify(event);
 }

@@ -15,7 +15,7 @@ set( SOURCES
      src/MonitorClient.cpp
      src/MonitoredSubscriber.h
      src/MonitoredSubscriber.cpp
-     src/EventProxy.h src/RelayEventProxy.cpp src/RelayEventProxy.h )
+     src/EventProxy.h src/RelayEventProxy.cpp src/RelayEventProxy.h src/event/Event.h src/event/GroupJoinEvent.cpp src/event/GroupJoinEvent.h src/event/ConnectEvent.cpp src/event/ConnectEvent.h src/event/SendEvent.cpp src/event/SendEvent.h src/event/BindEvent.cpp src/event/BindEvent.h )
 
 add_library( ${PROJECT_NAME} ${SOURCES} )
 
@@ -24,7 +24,8 @@ target_include_directories(${PROJECT_NAME}
                                 $<INSTALL_INTERFACE:include>
                                 $<BUILD_INTERFACE:
                                   ${CMAKE_CURRENT_SOURCE_DIR}/include
-                                  submodules/capnzero/capnzero/include>
+                                  submodules/capnzero/capnzero/include
+                                  submodules/yaml-cpp/include>
                               PRIVATE
                                 src
                            )
@@ -33,6 +34,7 @@ target_link_libraries( ${PROJECT_NAME}
                           PRIVATE
                             pthread
                             zmq
+                            yaml-cpp
                             capnzero
                             capnzero-base-msgs)
 

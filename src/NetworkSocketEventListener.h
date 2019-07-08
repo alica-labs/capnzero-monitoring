@@ -6,6 +6,7 @@
 #define LIBZMQMONITORING_SOCKETEVENTLISTENER_H
 
 #include <string>
+#include <src/event/Event.h>
 #include "monitor_config.h"
 #include "EventProxy.h"
 #include "RelayEventProxy.h"
@@ -17,7 +18,7 @@ public:
 
   ~NetworkSocketEventListener();
 
-  void notify(const std::string& message);
+  void notify(const Event& event);
 
 private:
   EventProxy* proxy;
