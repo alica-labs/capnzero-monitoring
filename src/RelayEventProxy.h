@@ -7,14 +7,15 @@
 
 
 #include <capnzero/Publisher.h>
+#include <src/event/Event.h>
 #include "EventProxy.h"
 
 class RelayEventProxy : public EventProxy
 {
 public:
-  RelayEventProxy(void* zmqContext);
+  explicit RelayEventProxy(void* zmqContext);
 
-  void notifyClient(const std::string& message) override;
+  void notifyClient(const Event& event) override;
 
 private:
   capnzero::Publisher publisher;

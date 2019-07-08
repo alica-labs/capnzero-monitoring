@@ -13,7 +13,7 @@ class EventProxy
 public:
   virtual ~EventProxy() = default;
 
-  virtual void notifyClient(const std::string& message) = 0;
+  virtual void notifyClient(const Event& event) = 0;
 };
 
 
