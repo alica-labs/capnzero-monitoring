@@ -3,10 +3,12 @@
 //
 
 
+#include <capnzero-base-msgs/string.capnp.h>
 #include "MonitoredSubscriber.h"
 #include "RelayEventProxy.h"
 #include "src/event/GroupJoinEvent.h"
 #include "src/event/ConnectEvent.h"
+#include "SubscribeEvent.h"
 
 MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, const std::string& group) : subscriber(zmqContext, group),
   eventListener(new RelayEventProxy(zmqContext))
@@ -28,4 +30,8 @@ void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string
 void MonitoredSubscriber::subscribe(void (* fun)(capnp::FlatArrayMessageReader&))
 {
   subscriber.subscribe(fun);
+
+  SubscribeEvent event;
+
+  eventListener.notify(event);
 }
