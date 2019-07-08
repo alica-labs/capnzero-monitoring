@@ -7,7 +7,7 @@
 #include "MonitoredPublisher.h"
 
 MonitoredPublisher::MonitoredPublisher(void* zmqContext, const std::string& groupName) :
-publisher(zmqContext), eventListener(zmqContext)
+publisher(zmqContext), eventListener(new RelayEventProxy(zmqContext))
 {
   publisher.setDefaultGroup(groupName);
   eventListener.notify("LOG: new publisher on group " + groupName);

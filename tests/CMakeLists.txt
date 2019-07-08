@@ -5,27 +5,21 @@ set( CMAKE_CXX_STANDARD 14 )
 
 find_package( GTest REQUIRED )
 
-if(NOT GTEST_FOUND)
-  message("FATAL: GTest not found")
-  return()
-endif()
-
 set( SOURCES
      test.cpp
-     )
+     networkSocketEventListenerTest.cpp mocks/MockEventProxy.h mocks/MonitoredSubscriberTest.cpp )
 
 add_executable( ${PROJECT_NAME} ${SOURCES} )
 
 target_include_directories( ${PROJECT_NAME}
                               PRIVATE
-                                ${GTEST_INCLUDE_DIR}
-                                ../include
-                                ../capnzero/include)
+                                ../include)
 
 target_link_libraries( ${PROJECT_NAME}
                         PRIVATE
-                          ${GTEST_LIBRARIES}
-                          gtest_main
+                          GTest::GTest
+                          gmock
+                          gmock_main
                           kj
                           capnp
                           capnzeroMonitoringLib)

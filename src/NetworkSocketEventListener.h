@@ -6,18 +6,21 @@
 #define LIBZMQMONITORING_SOCKETEVENTLISTENER_H
 
 #include <string>
-#include <capnzero/CapnZero.h>
 #include "monitor_config.h"
+#include "EventProxy.h"
+#include "RelayEventProxy.h"
 
 class NetworkSocketEventListener
 {
 public:
-  NetworkSocketEventListener(void* zmqContext);
+  explicit NetworkSocketEventListener(EventProxy* proxy);
+
+  ~NetworkSocketEventListener();
 
   void notify(const std::string& message);
 
 private:
-  capnzero::Publisher publisher;
+  EventProxy* proxy;
 };
 
 

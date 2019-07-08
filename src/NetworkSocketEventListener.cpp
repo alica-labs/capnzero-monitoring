@@ -9,17 +9,16 @@
 
 #include "NetworkSocketEventListener.h"
 
-NetworkSocketEventListener::NetworkSocketEventListener(void* zmqContext) : publisher(zmqContext)
+
+NetworkSocketEventListener::NetworkSocketEventListener(EventProxy* proxy) : proxy(proxy)
+{}
+
+NetworkSocketEventListener::~NetworkSocketEventListener()
 {
-  publisher.setDefaultGroup(MONITORING_GROUP);
-  publisher.bind(capnzero::CommType::UDP, MONITORING_ADDRESS);
+  delete proxy;
 }
 
 void NetworkSocketEventListener::notify(const std::string& message)
 {
-  capnp::MallocMessageBuilder builder;
-  capnzero::String::Builder messageBuilder = builder.initRoot<capnzero::String>();
-  messageBuilder.setString(message);
-
-  publisher.send(builder);
+  proxy->notifyClient(message);
 }

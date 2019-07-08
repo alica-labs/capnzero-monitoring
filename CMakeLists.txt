@@ -4,6 +4,7 @@ project( capnzeroMonitoringLib VERSION 1.0.0 LANGUAGES CXX )
 add_compile_definitions( ZMQ_BUILD_DRAFT_API )
 
 add_subdirectory(submodules/capnzero/capnzero)
+add_subdirectory(submodules/yaml-cpp)
 
 set( SOURCES
      src/MonitoredPublisher.h
@@ -14,7 +15,7 @@ set( SOURCES
      src/MonitorClient.cpp
      src/MonitoredSubscriber.h
      src/MonitoredSubscriber.cpp
-     )
+     src/EventProxy.h src/RelayEventProxy.cpp src/RelayEventProxy.h )
 
 add_library( ${PROJECT_NAME} ${SOURCES} )
 
