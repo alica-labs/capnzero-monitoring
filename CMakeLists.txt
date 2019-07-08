@@ -15,7 +15,7 @@ set( SOURCES
      src/MonitorClient.cpp
      src/MonitoredSubscriber.h
      src/MonitoredSubscriber.cpp
-     src/EventProxy.h src/RelayEventProxy.cpp src/RelayEventProxy.h src/event/Event.h src/event/GroupJoinEvent.cpp src/event/GroupJoinEvent.h src/event/ConnectEvent.cpp src/event/ConnectEvent.h src/event/SendEvent.cpp src/event/SendEvent.h src/event/BindEvent.cpp src/event/BindEvent.h )
+     src/EventProxy.h src/RelayEventProxy.cpp src/RelayEventProxy.h src/event/Event.h src/event/GroupJoinEvent.cpp src/event/GroupJoinEvent.h src/event/ConnectEvent.cpp src/event/ConnectEvent.h src/event/SendEvent.cpp src/event/SendEvent.h src/event/BindEvent.cpp src/event/BindEvent.h src/SubscribeEvent.cpp src/SubscribeEvent.h )
 
 add_library( ${PROJECT_NAME} ${SOURCES} )
 
