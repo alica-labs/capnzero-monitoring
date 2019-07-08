@@ -30,20 +30,6 @@ TEST(PublisherTest, singleMessageSending)
   publisher.send("this is a message");
 }
 
-TEST(SubscriberTest, singleMessageReceiving)
-{
-  void* zmqContext = zmq_ctx_new();
-
-  MonitorClient monitor(zmqContext);
-  monitor.start();
-
-  MonitoredSubscriber subscriber(zmqContext, "newgroup");
-
-  subscriber.connect(capnzero::CommType::UDP, "127.0.0.1:7890");
-
-  subscriber.subscribe(&callback);
-}
-
 TEST(CombinationTest, testSinglePublishSubscribe)
 {
   void* ctx = zmq_ctx_new();

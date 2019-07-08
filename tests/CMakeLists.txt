@@ -7,7 +7,7 @@ find_package( GTest REQUIRED )
 
 set( SOURCES
      test.cpp
-     networkSocketEventListenerTest.cpp mocks/MockEventProxy.h )
+     networkSocketEventListenerTest.cpp mocks/MockEventProxy.h mocks/MonitoredSubscriberTest.cpp )
 
 add_executable( ${PROJECT_NAME} ${SOURCES} )
 
