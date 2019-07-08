@@ -5,6 +5,9 @@
 #ifndef ZMQMONITORING_MONITOREDSUBSCRIBER_H
 #define ZMQMONITORING_MONITOREDSUBSCRIBER_H
 
+
+#include <capnp/serialize.h>
+#include <capnzero/Subscriber.h>
 #include "NetworkSocketEventListener.h"
 
 class MonitoredSubscriber

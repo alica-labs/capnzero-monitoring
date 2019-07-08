@@ -4,9 +4,10 @@
 
 
 #include "MonitoredSubscriber.h"
+#include "RelayEventProxy.h"
 
 MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, const std::string& group) : subscriber(zmqContext, group),
-                                                                                       eventListener(zmqContext)
+  eventListener(new RelayEventProxy(zmqContext))
 {
   eventListener.notify("LOG: new subscriber on group " + group);
 }
@@ -22,6 +23,6 @@ void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string
 void MonitoredSubscriber::subscribe(void (* fun)(capnp::FlatArrayMessageReader&))
 {
   subscriber.subscribe(fun);
-  
+
   eventListener.notify("LOG: Subscriber subscribed");
 }
