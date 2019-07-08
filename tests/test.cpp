@@ -28,6 +28,8 @@ TEST(PublisherTest, singleMessageSending)
 
   publisher.bind(capnzero::CommType::UDP, "127.0.0.1:7890");
   publisher.send("this is a message", "newgroup");
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 TEST(CombinationTest, testSinglePublishSubscribe)
