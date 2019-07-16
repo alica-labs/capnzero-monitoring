@@ -2,7 +2,7 @@
 // Created by sst on 7/8/19.
 //
 
-#include <submodules/yaml-cpp/include/yaml-cpp/yaml.h>
+#include <yaml-cpp/yaml.h>
 #include "GroupJoinEvent.h"
 
 GroupJoinEvent::GroupJoinEvent(const std::string& groupName) : groupName{groupName}

@@ -1,10 +1,29 @@
-cmake_minimum_required( VERSION 3.14 )
+cmake_minimum_required( VERSION 3.13 )
 project( capnzeroMonitoringLib VERSION 1.0.0 LANGUAGES CXX )
 
 add_compile_definitions( ZMQ_BUILD_DRAFT_API )
 
+if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+   message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+   file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.14/conan.cmake"
+                 "${CMAKE_BINARY_DIR}/conan.cmake")
+endif()
+
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+
+set(CONAN_REQUIREMENTS
+    gtest/1.8.1@bincrafters/stable
+    zmq/4.3.1@bincrafters/stable
+    yaml-cpp/0.6.2@bincrafters/stable)
+
+conan_cmake_run(REQUIRES ${CONAN_REQUIREMENTS}
+                BASIC_SETUP CMAKE_TARGETS
+                BUILD missing
+                BUILD_TYPE Release)
+
+message("Got Targets: ${CONAN_TARGETS}")
+
 add_subdirectory(submodules/capnzero/capnzero)
-add_subdirectory(submodules/yaml-cpp)
 
 set( SOURCES
      src/MonitoredPublisher.h
@@ -15,7 +34,20 @@ set( SOURCES
      src/MonitorClient.cpp
      src/MonitoredSubscriber.h
      src/MonitoredSubscriber.cpp
-     src/EventProxy.h src/RelayEventProxy.cpp src/RelayEventProxy.h src/event/Event.h src/event/GroupJoinEvent.cpp src/event/GroupJoinEvent.h src/event/ConnectEvent.cpp src/event/ConnectEvent.h src/event/SendEvent.cpp src/event/SendEvent.h src/event/BindEvent.cpp src/event/BindEvent.h src/SubscribeEvent.cpp src/SubscribeEvent.h )
+     src/EventProxy.h
+     src/RelayEventProxy.cpp
+     src/RelayEventProxy.h
+     src/event/Event.h
+     src/event/GroupJoinEvent.cpp
+     src/event/GroupJoinEvent.h
+     src/event/ConnectEvent.cpp
+     src/event/ConnectEvent.h
+     src/event/SendEvent.cpp
+     src/event/SendEvent.h
+     src/event/BindEvent.cpp
+     src/event/BindEvent.h
+     src/SubscribeEvent.cpp
+     src/SubscribeEvent.h )
 
 add_library( ${PROJECT_NAME} ${SOURCES} )
 
@@ -24,8 +56,7 @@ target_include_directories(${PROJECT_NAME}
                                 $<INSTALL_INTERFACE:include>
                                 $<BUILD_INTERFACE:
                                   ${CMAKE_CURRENT_SOURCE_DIR}/include
-                                  submodules/capnzero/capnzero/include
-                                  submodules/yaml-cpp/include>
+                                  submodules/capnzero/capnzero/include>
                               PRIVATE
                                 src
                            )
@@ -33,8 +64,8 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries( ${PROJECT_NAME}
                           PRIVATE
                             pthread
-                            zmq
-                            yaml-cpp
+                            CONAN_PKG::zmq
+                            CONAN_PKG::yaml-cpp
                             capnzero
                             capnzero-base-msgs)
 

@@ -2,7 +2,7 @@
 // Created by sst on 7/8/19.
 //
 
-#include <submodules/yaml-cpp/include/yaml-cpp/yaml.h>
+#include <yaml-cpp/yaml.h>
 #include "SendEvent.h"
 
 SendEvent::SendEvent(const std::string& message, const std::string& groupName) : message{message}, groupName{groupName}

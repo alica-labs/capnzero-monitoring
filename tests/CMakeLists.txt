@@ -1,25 +1,21 @@
-cmake_minimum_required( VERSION 3.14 )
+cmake_minimum_required( VERSION 3.13 )
 project( libzmqMonitoringTest )
-
-set( CMAKE_CXX_STANDARD 14 )
-
-find_package( GTest REQUIRED )
 
 set( SOURCES
      test.cpp
-     networkSocketEventListenerTest.cpp mocks/MockEventProxy.h MonitoredSubscriberTest.cpp )
+     networkSocketEventListenerTest.cpp
+     MonitoredSubscriberTest.cpp
+     mocks/MockEventProxy.h
+     )
 
 add_executable( ${PROJECT_NAME} ${SOURCES} )
 
-target_include_directories( ${PROJECT_NAME}
-                              PRIVATE
-                                ../include)
+target_include_directories( ${PROJECT_NAME} PRIVATE ../include)
 
 target_link_libraries( ${PROJECT_NAME}
                         PRIVATE
-                          GTest::GTest
-                          gmock
-                          gmock_main
-                          kj
+                          CONAN_PKG::gtest
                           capnp
                           capnzeroMonitoringLib)
+
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
