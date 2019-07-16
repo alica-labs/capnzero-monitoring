@@ -1,6 +1,3 @@
 [submodule "submodules/capnzero"]
 	path = submodules/capnzero
 	url = https://github.com/dasys-lab/capnzero.git
-[submodule "submodules/yaml-cpp"]
-	path = submodules/yaml-cpp
-	url = https://github.com/jbeder/yaml-cpp.git
