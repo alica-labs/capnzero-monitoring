@@ -3,12 +3,14 @@
 //
 
 #include <gtest/gtest.h>
-#include <zmqMonitoring.h>
 #include <zmq.h>
 #include <capnp/serialize.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <capnzero/Common.h>
 #include <thread>
+#include <src/MonitorClient.h>
+#include <src/MonitoredPublisher.h>
+#include <src/MonitoredSubscriber.h>
 
 void callback(capnp::FlatArrayMessageReader& reader)
 {

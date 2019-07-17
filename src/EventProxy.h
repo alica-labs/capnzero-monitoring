@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <event/Event.h>
 
 class EventProxy
 {

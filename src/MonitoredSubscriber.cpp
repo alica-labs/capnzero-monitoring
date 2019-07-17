@@ -6,9 +6,9 @@
 #include <capnzero-base-msgs/string.capnp.h>
 #include "MonitoredSubscriber.h"
 #include "RelayEventProxy.h"
-#include "src/event/GroupJoinEvent.h"
-#include "src/event/ConnectEvent.h"
-#include "SubscribeEvent.h"
+#include "event/GroupJoinEvent.h"
+#include "event/ConnectEvent.h"
+#include "event/SubscribeEvent.h"
 
 MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, const std::string& group) : subscriber(zmqContext, group),
   eventListener(new RelayEventProxy(zmqContext))
