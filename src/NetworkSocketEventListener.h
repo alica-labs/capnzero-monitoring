@@ -6,8 +6,7 @@
 #define LIBZMQMONITORING_SOCKETEVENTLISTENER_H
 
 #include <string>
-#include <src/event/Event.h>
-#include "monitor_config.h"
+#include <event/Event.h>
 #include "EventProxy.h"
 #include "RelayEventProxy.h"
 

@@ -2,14 +2,14 @@
 // Created by sst on 7/7/19.
 //
 
-#include <monitor_config.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include "RelayEventProxy.h"
 
-RelayEventProxy::RelayEventProxy(void* zmqContext) : publisher(zmqContext)
+RelayEventProxy::RelayEventProxy(void* zmqContext, const std::string& monitoringGroup, const std::string& monitoringAddress) :
+  publisher(zmqContext), monitoringGroup{monitoringGroup}, monitoringAddress{monitoringAddress}
 {
-  publisher.setDefaultGroup(MONITORING_GROUP);
-  publisher.bind(capnzero::CommType::UDP, MONITORING_ADDRESS);
+  publisher.setDefaultGroup(monitoringGroup);
+  publisher.bind(capnzero::CommType::UDP, monitoringAddress);
 }
 
 void RelayEventProxy::notifyClient(const Event& event)
