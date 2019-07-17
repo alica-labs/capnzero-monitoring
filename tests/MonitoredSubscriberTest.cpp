@@ -22,9 +22,6 @@ TEST(MonitoredSubscriberTest, connectAndSubscribeAreNotified)
 {
   void* zmqContext = zmq_ctx_new();
 
-  MonitorClient monitor(zmqContext);
-  monitor.start();
-
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(2);
 

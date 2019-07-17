@@ -14,10 +14,9 @@ void MonitoredCallback::setCallback(std::function<void(capnp::FlatArrayMessageRe
 
 void MonitoredCallback::monitoredCallback(capnp::FlatArrayMessageReader& reader)
 {
-  std::cout << "GOT MESSAGE IN CALLBACK: " << std::endl;
   const std::string message = reader.getRoot<capnzero::String>().getString();
-  ReceiveEvent event(message);
 
+  ReceiveEvent event(message);
   eventListener->notify(event);
 
   callback(reader);

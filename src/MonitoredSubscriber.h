@@ -17,6 +17,8 @@ class MonitoredSubscriber
 public:
   MonitoredSubscriber(void* zmqContext, const std::string& group);
 
+  ~MonitoredSubscriber();
+
   void attachEventListener(EventListener *eventListener);
 
   void connect(capnzero::CommType commType, const std::string& address);
