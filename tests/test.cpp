@@ -43,7 +43,11 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   MonitorClient monitorClient(ctx);
   monitorClient.start();
 
+  RelayEventProxy *proxy = new RelayEventProxy(ctx);
+  NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredSubscriber subscriber(ctx, group);
+  subscriber.attachEventListener(listener);
+
   MonitoredPublisher publisher(ctx);
 
   subscriber.connect(capnzero::CommType::UDP, address);
@@ -52,5 +56,8 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   subscriber.subscribe(&callback);
   publisher.send("This message should reach subscriber", group);
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+  delete listener;
+  delete proxy;
 }

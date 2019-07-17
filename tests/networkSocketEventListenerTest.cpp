@@ -26,4 +26,6 @@ TEST(ListenerTest, testSimpleEvent)
   NetworkSocketEventListener listener(proxy);
 
   listener.notify(event);
+
+  delete proxy;
 }

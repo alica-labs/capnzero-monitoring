@@ -6,6 +6,7 @@ set( SOURCES
      networkSocketEventListenerTest.cpp
      MonitoredSubscriberTest.cpp
      mocks/MockEventProxy.h
+     mocks/MockEventListener.h
      )
 
 add_executable( ${PROJECT_NAME} ${SOURCES} )

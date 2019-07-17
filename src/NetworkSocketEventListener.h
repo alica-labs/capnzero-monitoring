@@ -7,17 +7,16 @@
 
 #include <string>
 #include <event/Event.h>
+#include "EventListener.h"
 #include "EventProxy.h"
 #include "RelayEventProxy.h"
 
-class NetworkSocketEventListener
+class NetworkSocketEventListener : public EventListener
 {
 public:
   explicit NetworkSocketEventListener(EventProxy* proxy);
 
-  ~NetworkSocketEventListener();
-
-  void notify(const Event& event);
+  void notify(const Event& event) override;
 
 private:
   EventProxy* proxy;
