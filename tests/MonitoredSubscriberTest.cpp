@@ -16,7 +16,7 @@ void subscriberCallback(capnp::FlatArrayMessageReader& reader)
   std::cout << message << std::endl;
 }
 
-TEST(MonitoredSubscriberSubscriberTest, singleMessageReceiving)
+TEST(MonitoredSubscriberTest, singleMessageReceiving)
 {
   void* zmqContext = zmq_ctx_new();
 
