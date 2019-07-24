@@ -98,9 +98,6 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
   publisher.send("This message should reach subscriber", group);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
-  delete pubProxy;
-  delete proxy;
 }
 
 TEST(CombinationTest, testSinglePublishSubscribe)
@@ -125,8 +122,5 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   publisher.send("This message should reach subscriber", group);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
-  delete proxy;
-  delete pubProxy;
 }
 
