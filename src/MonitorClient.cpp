@@ -7,21 +7,20 @@
 #include <capnp/serialize.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <capnzero/Common.h>
-#include <event/Event.h>
-#include <yaml-cpp/yaml.h>
 #include "MonitorClient.h"
-
-static void callback(capnp::FlatArrayMessageReader& reader)
-{
-  const std::string message = reader.getRoot<capnzero::String>().getString();
-
-  std::cout << "MONITOR_CLIENT got event:" << std::endl << message << std::endl << std::endl;
-}
+#include <event/yamleventparser.h>
 
 MonitorClient::MonitorClient(void* zmqContext, const std::string& monitoringAddress, const std::string& monitoringGroup) :
   subscriber(zmqContext, monitoringGroup), monitoringAddress {monitoringAddress}, monitoringGroup {monitoringGroup}
 {
+}
 
+MonitorClient::~MonitorClient()
+{
+  for(const Event* event : events)
+  {
+    delete event;
+  }
 }
 
 void MonitorClient::start()
@@ -30,5 +29,21 @@ void MonitorClient::start()
 
   std::cout << "MONITOR_CLIENT connected to " << monitoringAddress << std::endl;
 
-  subscriber.subscribe(&callback);
+  subscriber.subscribe(&MonitorClient::appendEvent, this);
+}
+
+const std::vector<const Event*> MonitorClient::getEvents() const
+{
+  return events;
+}
+
+void MonitorClient::appendEvent(capnp::FlatArrayMessageReader& reader)
+{
+  const std::string message = reader.getRoot<capnzero::String>().getString();
+
+  std::cout << "MONITOR_CLIENT got event:" << std::endl << message << std::endl << std::endl;
+
+  const Event* event = yamlEventParser.parse(message);
+
+  events.push_back(event);
 }

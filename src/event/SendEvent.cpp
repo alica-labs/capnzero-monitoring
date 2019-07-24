@@ -5,6 +5,11 @@
 #include <yaml-cpp/yaml.h>
 #include "SendEvent.h"
 
+SendEvent::SendEvent()
+{
+  type = "send";
+}
+
 SendEvent::SendEvent(const std::string& message, const std::string& groupName) : message{message}, groupName{groupName}
 {
   type = "send";
@@ -20,4 +25,11 @@ const std::string SendEvent::toYaml() const
        << YAML::EndMap;
 
   return yaml.c_str();
+}
+
+void SendEvent::parse(const std::string& yamlSerializedEvent)
+{
+  YAML::Node yamlEvent = YAML::Load(yamlSerializedEvent);
+  message = yamlEvent["message"].as<std::string>();
+  groupName = yamlEvent["group"].as<std::string>();
 }

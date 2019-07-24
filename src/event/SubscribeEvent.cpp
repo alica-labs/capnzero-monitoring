@@ -19,3 +19,8 @@ const std::string SubscribeEvent::toYaml() const
 
   return yaml.c_str();
 }
+
+void SubscribeEvent::parse(const std::string& yamlSerializedEvent)
+{
+
+}
