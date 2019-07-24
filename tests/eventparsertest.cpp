@@ -16,9 +16,9 @@ TEST(EventParserTest, parsingBindEvent)
     "communication_type: 0"
   };
 
-  Event* event = YamlEventParser::parse(serializedEvent);
+  const Event* event = YamlEventParser::parse(serializedEvent);
 
-  dynamic_cast<BindEvent*>(event);
+  dynamic_cast<const BindEvent*>(event);
 }
 
 TEST(EventParserTest, parsingConnectEvent)
@@ -29,9 +29,9 @@ TEST(EventParserTest, parsingConnectEvent)
     "communication_type: 0"
   };
 
-  Event* event = YamlEventParser::parse(serializedEvent);
+  const Event* event = YamlEventParser::parse(serializedEvent);
 
-  dynamic_cast<ConnectEvent*>(event);
+  dynamic_cast<const ConnectEvent*>(event);
 }
 
 TEST(EventParserTest, parsingGroupJoinEvent)
@@ -41,9 +41,9 @@ TEST(EventParserTest, parsingGroupJoinEvent)
     "group: group"
   };
 
-  Event* event = YamlEventParser::parse(serializedEvent);
+  const Event* event = YamlEventParser::parse(serializedEvent);
 
-  dynamic_cast<GroupJoinEvent*>(event);
+  dynamic_cast<const GroupJoinEvent*>(event);
 }
 
 TEST(EventParserTest, parsingReceiveEvent)
@@ -53,9 +53,9 @@ TEST(EventParserTest, parsingReceiveEvent)
     "message: msg"
   };
 
-  Event* event = YamlEventParser::parse(serializedEvent);
+  const Event* event = YamlEventParser::parse(serializedEvent);
 
-  dynamic_cast<ReceiveEvent*>(event);
+  dynamic_cast<const ReceiveEvent*>(event);
 }
 
 TEST(EventParserTest, parsingSendEvent)
@@ -66,9 +66,9 @@ TEST(EventParserTest, parsingSendEvent)
     "group: group"
   };
 
-  Event* event = YamlEventParser::parse(serializedEvent);
+  const Event* event = YamlEventParser::parse(serializedEvent);
 
-  dynamic_cast<SendEvent*>(event);
+  dynamic_cast<const SendEvent*>(event);
 }
 
 TEST(EventParserTest, parsingSubscribeEvent)
@@ -77,9 +77,9 @@ TEST(EventParserTest, parsingSubscribeEvent)
     "type: subscribe"
   };
 
-  Event* event = YamlEventParser::parse(serializedEvent);
+  const Event* event = YamlEventParser::parse(serializedEvent);
 
-  dynamic_cast<SubscribeEvent*>(event);
+  dynamic_cast<const SubscribeEvent*>(event);
 }
 
 TEST(EventParserTest, notParsingInvalidEvent)

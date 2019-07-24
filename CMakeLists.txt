@@ -58,7 +58,21 @@ set(SOURCES
      src/event/ReceiveEvent.h
      src/event/yamleventparser.cpp
      src/event/yamleventparser.h
-     #exception
+     # Event factories
+     src/event/factory/eventfactory.h
+     src/event/factory/bindeventfactory.cpp
+     src/event/factory/bindeventfactory.h
+     src/event/factory/connecteventfactory.cpp
+     src/event/factory/connecteventfactory.cpp
+     src/event/factory/groupjoineventfactory.cpp
+     src/event/factory/groupjoineventfactory.h
+     src/event/factory/receiveeventfactory.cpp
+     src/event/factory/receiveeventfactory.h
+     src/event/factory/sendeventfactory.cpp
+     src/event/factory/sendeventfactory.h
+     src/event/factory/subscribeeventfactory.cpp
+     src/event/factory/subscribeeventfactory.h
+     # Exceptions
      src/exception/unknowneventexception.cpp
      src/exception/unknowneventexception.h
      )

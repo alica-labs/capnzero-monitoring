@@ -15,6 +15,7 @@ public:
 
   const std::string toYaml() const override;
 
+  void parse(const std::string& yamlSerializedEvent) override;
 };
 
 

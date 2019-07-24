@@ -1,59 +1,38 @@
-#include "BindEvent.h"
-#include "ConnectEvent.h"
-#include "GroupJoinEvent.h"
-#include "ReceiveEvent.h"
-#include "SendEvent.h"
-#include "SubscribeEvent.h"
 #include "yamleventparser.h"
-
 #include <yaml-cpp/yaml.h>
-
 #include <exception/unknowneventexception.h>
+#include <event/factory/bindeventfactory.h>
+#include <event/factory/connecteventfactory.h>
+#include <event/factory/eventfactory.h>
+#include <event/factory/groupjoineventfactory.h>
+#include <event/factory/receiveeventfactory.h>
+#include <event/factory/sendeventfactory.h>
+#include <event/factory/subscribeeventfactory.h>
+
+static std::map<const std::string, EventFactory*> eventMapping
+{
+  {"bind", new BindEventFactory()},
+  {"connect", new ConnectEventFactory()},
+  {"join", new GroupJoinEventFactory()},
+  {"receive", new ReceiveEventFactory()},
+  {"send", new SendEventFactory()},
+  {"subscribe", new SubscribeEventFactory()}
+};
 
 YamlEventParser::YamlEventParser()
 {}
 
-Event* YamlEventParser::parse(const std::string& yamlSerializedEvent)
+const Event* YamlEventParser::parse(const std::string& yamlSerializedEvent)
 {
   YAML::Node yamlEvent = YAML::Load(yamlSerializedEvent);
   const std::string eventType = yamlEvent["type"].as<std::string>();
 
-  if(eventType == "bind")
+  try
   {
-    const std::string address = yamlEvent["address"].as<std::string>();
-    capnzero::CommType commType = static_cast<capnzero::CommType>(yamlEvent["communication_type"].as<int>());
-    return new BindEvent(address, commType);
+    return eventMapping.at(eventType)->factorFromString(yamlSerializedEvent);
   }
-  else if(eventType == "connect")
+  catch (std::out_of_range)
   {
-    const std::string address = yamlEvent["address"].as<std::string>();
-    capnzero::CommType commType = static_cast<capnzero::CommType>(yamlEvent["communication_type"].as<int>());
-    return new ConnectEvent(address, commType);
-  }
-  else if(eventType == "join")
-  {
-    const std::string group = yamlEvent["group"].as<std::string>();
-    return new GroupJoinEvent(group);
-  }
-  else if(eventType == "receive")
-  {
-    const std::string message = yamlEvent["message"].as<std::string>();
-    return new ReceiveEvent(message);
-  }
-  else if(eventType == "send")
-  {
-    const std::string message = yamlEvent["message"].as<std::string>();
-    const std::string group = yamlEvent["group"].as<std::string>();
-    return new SendEvent(message, group);
-  }
-  else if(eventType == "subscribe")
-  {
-    return new SubscribeEvent();
-  }
-  else
-  {
-    std::cout << "Unknown event of type \"" << eventType << "\" received." << std::endl;
-
     throw UnknownEventException("Unknown event of type \"" + eventType + "\"");
   }
 }
