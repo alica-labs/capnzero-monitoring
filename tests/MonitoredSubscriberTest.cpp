@@ -23,7 +23,7 @@ TEST(MonitoredSubscriberTest, connectAndSubscribeAreNotified)
   void* zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(2);
+  EXPECT_CALL(*listener, notify).Times(3);
 
   MonitoredSubscriber subscriber(zmqContext, "newgroup", listener);
   subscriber.connect(capnzero::CommType::UDP, "127.0.0.1:7890");
@@ -41,7 +41,7 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   const std::string group{"newgroup"};
 
   MockEventListener *subListener = new MockEventListener();
-  EXPECT_CALL(*subListener, notify).Times(3);
+  EXPECT_CALL(*subListener, notify).Times(4);
 
   MockEventListener *pubListener = new MockEventListener();
 

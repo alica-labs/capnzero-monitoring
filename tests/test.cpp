@@ -58,7 +58,7 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   const std::string address {"127.0.0.1:7890"};
 
   MockEventListener *subListener = new MockEventListener();
-  EXPECT_CALL(*subListener, notify).Times(3);
+  EXPECT_CALL(*subListener, notify).Times(4);
 
   MockEventListener *pubListener = new MockEventListener();
   EXPECT_CALL(*pubListener, notify).Times(2);
@@ -113,7 +113,7 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
   const std::string address {"127.0.0.1:7890"};
 
   MockEventProxy *proxy = new MockEventProxy();
-  EXPECT_CALL(*proxy, notifyClient).Times(3);
+  EXPECT_CALL(*proxy, notifyClient).Times(4);
 
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredSubscriber subscriber(ctx, group, listener);

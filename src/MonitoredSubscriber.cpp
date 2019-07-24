@@ -28,10 +28,10 @@ void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string
 
 void MonitoredSubscriber::subscribe(void (* callback)(capnp::FlatArrayMessageReader&))
 {
-  MonitoredCallback monitoredCallback(eventListener, callback);
+  MonitoredCallback *monitoredCallback = new MonitoredCallback(eventListener, callback);
 
   SubscribeEvent event;
   eventListener->notify(event);
 
-  subscriber.subscribe(&MonitoredCallback::monitoredCallback, &monitoredCallback);
+  subscriber.subscribe(&MonitoredCallback::monitoredCallback, monitoredCallback);
 }
