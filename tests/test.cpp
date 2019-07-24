@@ -72,8 +72,6 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   publisher.send("This message should reach subscriber", group);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
-  delete subListener;
 }
 
 
@@ -102,7 +100,6 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
   delete pubProxy;
-  delete listener;
   delete proxy;
 }
 
@@ -129,7 +126,6 @@ TEST(CombinationTest, testSinglePublishSubscribe)
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
-  delete listener;
   delete proxy;
   delete pubProxy;
 }

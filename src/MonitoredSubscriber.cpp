@@ -18,6 +18,12 @@ MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, const std::string& gr
   eventListener->notify(event);
 }
 
+MonitoredSubscriber::~MonitoredSubscriber()
+{
+  delete messageCallback;
+  delete eventListener;
+}
+
 void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string& address)
 {
   subscriber.connect(commType, address);
@@ -28,10 +34,10 @@ void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string
 
 void MonitoredSubscriber::subscribe(void (* callback)(capnp::FlatArrayMessageReader&))
 {
-  MonitoredCallback *monitoredCallback = new MonitoredCallback(eventListener, callback);
+  messageCallback = new MonitoredCallback(eventListener, callback);
 
   SubscribeEvent event;
   eventListener->notify(event);
 
-  subscriber.subscribe(&MonitoredCallback::monitoredCallback, monitoredCallback);
+  subscriber.subscribe(&MonitoredCallback::monitoredCallback, messageCallback);
 }

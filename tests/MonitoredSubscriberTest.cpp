@@ -30,8 +30,6 @@ TEST(MonitoredSubscriberTest, connectAndSubscribeAreNotified)
   subscriber.subscribe(&subscriberCallback);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-  delete listener;
 }
 
 TEST(MonitoredSubscriberTest, singleMessageReceiving)
@@ -56,6 +54,4 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   publisher.send("Message", group);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-  delete subListener;
 }

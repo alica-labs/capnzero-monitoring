@@ -55,7 +55,8 @@ set(SOURCES
      src/event/SubscribeEvent.cpp
      src/event/SubscribeEvent.h
      src/event/ReceiveEvent.cpp
-     src/event/ReceiveEvent.h)
+     src/event/ReceiveEvent.h
+     )
 
 add_library(${PROJECT_NAME} ${SOURCES})
 
