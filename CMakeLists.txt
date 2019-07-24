@@ -56,6 +56,11 @@ set(SOURCES
      src/event/SubscribeEvent.h
      src/event/ReceiveEvent.cpp
      src/event/ReceiveEvent.h
+     src/event/yamleventparser.cpp
+     src/event/yamleventparser.h
+     #exception
+     src/exception/unknowneventexception.cpp
+     src/exception/unknowneventexception.h
      )
 
 add_library(${PROJECT_NAME} ${SOURCES})

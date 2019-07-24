@@ -91,7 +91,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-  std::vector<Event*> monitorEvents = monitorClient.getEvents();
+  std::vector<const Event*> monitorEvents = monitorClient.getEvents();
 
   ASSERT_EQ(monitorEvents.size(), 6);
 }

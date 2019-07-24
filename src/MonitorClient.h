@@ -18,7 +18,7 @@ public:
 
   void start();
 
-  const std::vector<Event*> getEvents() const;
+  const std::vector<const Event*> getEvents() const;
 
   void appendEvent(::capnp::FlatArrayMessageReader& reader);
 
@@ -26,7 +26,7 @@ private:
   capnzero::Subscriber subscriber;
   std::string monitoringAddress;
   std::string monitoringGroup;
-  std::vector<Event*> events;
+  std::vector<const Event*> events;
 };
 
 
