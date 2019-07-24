@@ -26,8 +26,7 @@ TEST(PublisherTest, singleMessageSending)
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(2);
 
-  MonitoredPublisher publisher(zmqContext);
-  publisher.attachEventListener(listener);
+  MonitoredPublisher publisher(zmqContext, listener);
   publisher.bind(capnzero::CommType::UDP, "127.0.0.1:7890");
   publisher.send("this is a message", "newgroup");
 
@@ -41,8 +40,7 @@ TEST(PublisherTest, multipleMessageSending)
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(6);
 
-  MonitoredPublisher publisher(zmqContext);
-  publisher.attachEventListener(listener);
+  MonitoredPublisher publisher(zmqContext, listener);
   publisher.bind(capnzero::CommType::UDP, "127.0.0.1:7890");
   publisher.send("this is a message1", "newgroup");
   publisher.send("this is a message2", "newgroup");
@@ -51,6 +49,33 @@ TEST(PublisherTest, multipleMessageSending)
   publisher.send("this is a message5", "newgroup");
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+}
+
+TEST(CombinationTest, publishSubscribeIsMonitored)
+{
+  void* ctx = zmq_ctx_new();
+  const std::string group {"group"};
+  const std::string address {"127.0.0.1:7890"};
+
+  MockEventListener *subListener = new MockEventListener();
+  EXPECT_CALL(*subListener, notify).Times(3);
+
+  MockEventListener *pubListener = new MockEventListener();
+  EXPECT_CALL(*pubListener, notify).Times(2);
+
+  MonitoredSubscriber subscriber(ctx, group);
+  subscriber.attachEventListener(subListener);
+  subscriber.connect(capnzero::CommType::UDP, address);
+  subscriber.subscribe(&callback);
+
+  MonitoredPublisher publisher(ctx, pubListener);
+  publisher.bind(capnzero::CommType::UDP, address);
+  publisher.send("This message should reach subscriber", group);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+  delete pubListener;
+  delete subListener;
 }
 
 TEST(CombinationTest, testSinglePublishSubscribe)
@@ -71,12 +96,16 @@ TEST(CombinationTest, testSinglePublishSubscribe)
 
   RelayEventProxy *pubProxy = new RelayEventProxy(ctx);
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
-  MonitoredPublisher publisher(ctx);
-  publisher.attachEventListener(pubListener);
+  MonitoredPublisher publisher(ctx, pubListener);
   publisher.bind(capnzero::CommType::UDP, address);
   publisher.send("This message should reach subscriber", group);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+  delete listener;
+  delete proxy;
+  delete pubListener;
+  delete pubProxy;
 }
 
 TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
@@ -98,10 +127,15 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
   EXPECT_CALL(*pubProxy, notifyClient).Times(2);
 
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
-  MonitoredPublisher publisher(ctx);
-  publisher.attachEventListener(pubListener);
+  MonitoredPublisher publisher(ctx, pubListener);
   publisher.bind(capnzero::CommType::UDP, address);
   publisher.send("This message should reach subscriber", group);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+  delete pubListener;
+  delete pubProxy;
+  delete listener;
+  delete proxy;
 }
+

@@ -8,14 +8,10 @@
 #include "src/event/SendEvent.h"
 #include "src/event/BindEvent.h"
 
-MonitoredPublisher::MonitoredPublisher(void* zmqContext) :
-publisher(zmqContext), eventListener(nullptr)
+MonitoredPublisher::MonitoredPublisher(void* zmqContext, EventListener* listener) :
+  publisher(zmqContext), eventListener(listener)
 {
-}
 
-MonitoredPublisher::~MonitoredPublisher()
-{
-  delete eventListener;
 }
 
 void MonitoredPublisher::bind(capnzero::CommType commType, const std::string& address)
@@ -36,9 +32,4 @@ void MonitoredPublisher::send(const std::string& message, const std::string& gro
   eventListener->notify(event);
 
   publisher.send(builder, groupName);
-}
-
-void MonitoredPublisher::attachEventListener(EventListener* listener)
-{
-  eventListener = listener;
 }

@@ -16,8 +16,6 @@ class NetworkSocketEventListener : public EventListener
 public:
   explicit NetworkSocketEventListener(EventProxy* proxy);
 
-  ~NetworkSocketEventListener();
-
   void notify(const Event& event) override;
 
 private:

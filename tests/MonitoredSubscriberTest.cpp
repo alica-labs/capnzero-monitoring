@@ -43,14 +43,16 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   const std::string address{"127.0.0.1:7890"};
   const std::string group{"newgroup"};
 
-  MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(3);
+  MockEventListener *subListener = new MockEventListener();
+  EXPECT_CALL(*subListener, notify).Times(3);
 
-  MonitoredPublisher publisher(zmqContext);
+  MockEventListener *pubListener = new MockEventListener();
+
+  MonitoredPublisher publisher(zmqContext, pubListener);
   publisher.bind(capnzero::CommType::UDP, address);
 
   MonitoredSubscriber subscriber(zmqContext, group);
-  subscriber.attachEventListener(listener);
+  subscriber.attachEventListener(subListener);
 
   subscriber.connect(capnzero::CommType::UDP, address);
 
@@ -59,5 +61,6 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-  delete listener;
+  delete pubListener;
+  delete subListener;
 }
