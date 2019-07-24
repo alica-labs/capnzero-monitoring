@@ -14,6 +14,11 @@ MonitoredPublisher::MonitoredPublisher(void* zmqContext, EventListener* listener
 
 }
 
+MonitoredPublisher::~MonitoredPublisher()
+{
+  delete eventListener;
+}
+
 void MonitoredPublisher::bind(capnzero::CommType commType, const std::string& address)
 {
   publisher.bind(commType, address);
