@@ -63,8 +63,7 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   MockEventListener *pubListener = new MockEventListener();
   EXPECT_CALL(*pubListener, notify).Times(2);
 
-  MonitoredSubscriber subscriber(ctx, group);
-  subscriber.attachEventListener(subListener);
+  MonitoredSubscriber subscriber(ctx, group, subListener);
   subscriber.connect(capnzero::CommType::UDP, address);
   subscriber.subscribe(&callback);
 
@@ -89,8 +88,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
 
   RelayEventProxy *proxy = new RelayEventProxy(ctx);
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
-  MonitoredSubscriber subscriber(ctx, group);
-  subscriber.attachEventListener(listener);
+  MonitoredSubscriber subscriber(ctx, group, listener);
   subscriber.connect(capnzero::CommType::UDP, address);
   subscriber.subscribe(&callback);
 
@@ -118,8 +116,7 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
   EXPECT_CALL(*proxy, notifyClient).Times(3);
 
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
-  MonitoredSubscriber subscriber(ctx, group);
-  subscriber.attachEventListener(listener);
+  MonitoredSubscriber subscriber(ctx, group, listener);
   subscriber.connect(capnzero::CommType::UDP, address);
   subscriber.subscribe(&callback);
 

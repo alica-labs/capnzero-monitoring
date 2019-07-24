@@ -7,9 +7,7 @@
 class MonitoredCallback
 {
 public:
-  MonitoredCallback(EventListener* eventListener);
-
-  void setCallback(std::function<void(::capnp::FlatArrayMessageReader&)> callback);
+  MonitoredCallback(EventListener* eventListener, std::function<void(::capnp::FlatArrayMessageReader&)> callback);
 
   void monitoredCallback(capnp::FlatArrayMessageReader& reader);
 

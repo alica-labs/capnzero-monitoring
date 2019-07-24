@@ -2,14 +2,10 @@
 #include <capnzero-base-msgs/string.capnp.h>
 #include <event/ReceiveEvent.h>
 
-MonitoredCallback::MonitoredCallback(EventListener* eventListener) : eventListener(eventListener)
+MonitoredCallback::MonitoredCallback(EventListener* eventListener, std::function<void (capnp::FlatArrayMessageReader&)> callback) :
+  eventListener(eventListener), callback(callback)
 {
 
-}
-
-void MonitoredCallback::setCallback(std::function<void(capnp::FlatArrayMessageReader&)> callback)
-{
-  this->callback = callback;
 }
 
 void MonitoredCallback::monitoredCallback(capnp::FlatArrayMessageReader& reader)

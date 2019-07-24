@@ -11,18 +11,11 @@
 #include "event/ConnectEvent.h"
 #include "event/SubscribeEvent.h"
 
-MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, const std::string& group) : subscriber(zmqContext, group), eventListener{nullptr}
+MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, const std::string& group, EventListener* listener) :
+  subscriber(zmqContext, group), eventListener(listener)
 {
-}
-
-MonitoredSubscriber::~MonitoredSubscriber()
-{
-  delete eventListener;
-}
-
-void MonitoredSubscriber::attachEventListener(EventListener* eventListener)
-{
-  this->eventListener = eventListener;
+  GroupJoinEvent event(group);
+  eventListener->notify(event);
 }
 
 void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string& address)
@@ -35,8 +28,7 @@ void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string
 
 void MonitoredSubscriber::subscribe(void (* callback)(capnp::FlatArrayMessageReader&))
 {
-  MonitoredCallback monitoredCallback(eventListener);
-  monitoredCallback.setCallback(callback);
+  MonitoredCallback monitoredCallback(eventListener, callback);
 
   SubscribeEvent event;
   eventListener->notify(event);
