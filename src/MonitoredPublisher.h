@@ -10,7 +10,9 @@
 class MonitoredPublisher
 {
 public:
-  explicit MonitoredPublisher(void* zmqContext);
+  explicit MonitoredPublisher(void* zmqContext, EventListener* listener);
+
+  ~MonitoredPublisher();
 
   void bind(capnzero::CommType commType, const std::string& address);
 
@@ -18,7 +20,7 @@ public:
 
 private:
   capnzero::Publisher publisher;
-  NetworkSocketEventListener eventListener;
+  EventListener* eventListener;
 };
 
 

@@ -23,17 +23,26 @@ conan_cmake_run(REQUIRES ${CONAN_REQUIREMENTS}
 add_subdirectory(submodules/capnzero/capnzero)
 
 set(SOURCES
+     # Monitored publisher
      src/MonitoredPublisher.h
      src/MonitoredPublisher.cpp
+     # Event listener
+     src/EventListener.h
      src/NetworkSocketEventListener.h
      src/NetworkSocketEventListener.cpp
+     # Monitor client
      src/MonitorClient.h
      src/MonitorClient.cpp
+     # Monitored subscriber
      src/MonitoredSubscriber.h
      src/MonitoredSubscriber.cpp
+     src/MonitoredCallback.cpp
+     src/MonitoredCallback.h
+     # Proxy
      src/EventProxy.h
      src/RelayEventProxy.cpp
      src/RelayEventProxy.h
+     # Events
      src/event/Event.h
      src/event/GroupJoinEvent.cpp
      src/event/GroupJoinEvent.h
@@ -44,7 +53,10 @@ set(SOURCES
      src/event/BindEvent.cpp
      src/event/BindEvent.h
      src/event/SubscribeEvent.cpp
-     src/event/SubscribeEvent.h)
+     src/event/SubscribeEvent.h
+     src/event/ReceiveEvent.cpp
+     src/event/ReceiveEvent.h
+     )
 
 add_library(${PROJECT_NAME} ${SOURCES})
 

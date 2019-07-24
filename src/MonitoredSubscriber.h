@@ -6,14 +6,19 @@
 #define ZMQMONITORING_MONITOREDSUBSCRIBER_H
 
 
+#include "EventListener.h"
+#include "MonitoredCallback.h"
+
 #include <capnp/serialize.h>
 #include <capnzero/Subscriber.h>
-#include "NetworkSocketEventListener.h"
+
 
 class MonitoredSubscriber
 {
 public:
-  MonitoredSubscriber(void* zmqContext, const std::string& group);
+  MonitoredSubscriber(void* zmqContext, const std::string& group, EventListener* listener);
+
+  ~MonitoredSubscriber();
 
   void connect(capnzero::CommType commType, const std::string& address);
 
@@ -21,7 +26,8 @@ public:
 
 private:
   capnzero::Subscriber subscriber;
-  NetworkSocketEventListener eventListener;
+  EventListener *eventListener;
+  MonitoredCallback* messageCallback;
 };
 
 

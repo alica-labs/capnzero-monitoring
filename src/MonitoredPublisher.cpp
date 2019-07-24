@@ -8,9 +8,15 @@
 #include "src/event/SendEvent.h"
 #include "src/event/BindEvent.h"
 
-MonitoredPublisher::MonitoredPublisher(void* zmqContext) :
-publisher(zmqContext), eventListener(new RelayEventProxy(zmqContext))
+MonitoredPublisher::MonitoredPublisher(void* zmqContext, EventListener* listener) :
+  publisher(zmqContext), eventListener(listener)
 {
+
+}
+
+MonitoredPublisher::~MonitoredPublisher()
+{
+  delete eventListener;
 }
 
 void MonitoredPublisher::bind(capnzero::CommType commType, const std::string& address)
@@ -18,8 +24,7 @@ void MonitoredPublisher::bind(capnzero::CommType commType, const std::string& ad
   publisher.bind(commType, address);
 
   BindEvent event(address, commType);
-
-  eventListener.notify(event);
+  eventListener->notify(event);
 }
 
 void MonitoredPublisher::send(const std::string& message, const std::string& groupName)
@@ -28,9 +33,8 @@ void MonitoredPublisher::send(const std::string& message, const std::string& gro
   capnzero::String::Builder messageBuilder = builder.initRoot<capnzero::String>();
   messageBuilder.setString(message);
 
-  publisher.send(builder);
-
   SendEvent event(message, groupName);
+  eventListener->notify(event);
 
-  eventListener.notify(event);
+  publisher.send(builder, groupName);
 }
