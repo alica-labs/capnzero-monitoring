@@ -39,7 +39,7 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   publisher.bind(capnzero::CommType::UDP, address);
   publisher.send("This message should reach subscriber", group);
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
 
@@ -89,6 +89,10 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   publisher.bind(capnzero::CommType::UDP, address);
   publisher.send("This message should reach subscriber", group);
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  std::vector<Event*> monitorEvents = monitorClient.getEvents();
+
+  ASSERT_EQ(monitorEvents.size(), 6);
 }
 

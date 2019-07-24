@@ -6,6 +6,7 @@ set( SOURCES
      networkSocketEventListenerTest.cpp
      MonitoredSubscriberTest.cpp
      monitoredpublishertest.cpp
+     monitorclienttest.cpp
      mocks/MockEventProxy.h
      mocks/MockEventListener.h
      )

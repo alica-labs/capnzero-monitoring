@@ -7,17 +7,26 @@
 
 #include <capnzero/CapnZero.h>
 
+#include <event/Event.h>
+
 class MonitorClient
 {
 public:
   MonitorClient(void* zmqContext, const std::string& monitoringAddress = "127.0.0.1:9876", const std::string& monitoringGroup = "monitoring");
 
+  ~MonitorClient();
+
   void start();
+
+  const std::vector<Event*> getEvents() const;
+
+  void appendEvent(::capnp::FlatArrayMessageReader& reader);
 
 private:
   capnzero::Subscriber subscriber;
   std::string monitoringAddress;
   std::string monitoringGroup;
+  std::vector<Event*> events;
 };
 
 
