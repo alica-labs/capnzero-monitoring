@@ -8,5 +8,5 @@ class YamlEventParser
 public:
   YamlEventParser();
 
-  static const Event* parse(const std::string& yamlSerializedEvent);
+  static Event* parse(const std::string& yamlSerializedEvent);
 };

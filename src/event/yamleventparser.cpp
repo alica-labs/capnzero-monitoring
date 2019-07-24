@@ -13,7 +13,7 @@
 YamlEventParser::YamlEventParser()
 {}
 
-const Event* YamlEventParser::parse(const std::string& yamlSerializedEvent)
+Event* YamlEventParser::parse(const std::string& yamlSerializedEvent)
 {
   YAML::Node yamlEvent = YAML::Load(yamlSerializedEvent);
   const std::string eventType = yamlEvent["type"].as<std::string>();
