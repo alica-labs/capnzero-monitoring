@@ -13,7 +13,6 @@
 MonitorClient::MonitorClient(void* zmqContext, const std::string& monitoringAddress, const std::string& monitoringGroup) :
   subscriber(zmqContext, monitoringGroup), monitoringAddress {monitoringAddress}, monitoringGroup {monitoringGroup}
 {
-
 }
 
 MonitorClient::~MonitorClient()
@@ -44,7 +43,7 @@ void MonitorClient::appendEvent(capnp::FlatArrayMessageReader& reader)
 
   std::cout << "MONITOR_CLIENT got event:" << std::endl << message << std::endl << std::endl;
 
-  const Event* event = YamlEventParser::parse(message);
+  const Event* event = yamlEventParser.parse(message);
 
   events.push_back(event);
 }

@@ -6,8 +6,8 @@
 #define ZMQMONITORING_MONITORCLIENT_H
 
 #include <capnzero/CapnZero.h>
-
 #include <event/Event.h>
+#include <event/yamleventparser.h>
 
 class MonitorClient
 {
@@ -27,6 +27,7 @@ private:
   std::string monitoringAddress;
   std::string monitoringGroup;
   std::vector<const Event*> events;
+  YamlEventParser yamlEventParser;
 };
 
 

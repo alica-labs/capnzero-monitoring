@@ -9,18 +9,26 @@
 #include <event/factory/sendeventfactory.h>
 #include <event/factory/subscribeeventfactory.h>
 
-static std::map<const std::string, EventFactory*> eventMapping
-{
-  {"bind", new BindEventFactory()},
-  {"connect", new ConnectEventFactory()},
-  {"join", new GroupJoinEventFactory()},
-  {"receive", new ReceiveEventFactory()},
-  {"send", new SendEventFactory()},
-  {"subscribe", new SubscribeEventFactory()}
-};
 
 YamlEventParser::YamlEventParser()
-{}
+{
+  eventMapping = {
+    {"bind", new BindEventFactory()},
+    {"connect", new ConnectEventFactory()},
+    {"join", new GroupJoinEventFactory()},
+    {"receive", new ReceiveEventFactory()},
+    {"send", new SendEventFactory()},
+    {"subscribe", new SubscribeEventFactory()}
+  };
+}
+
+YamlEventParser::~YamlEventParser()
+{
+  for(auto entry : eventMapping)
+  {
+    delete entry.second;
+  }
+}
 
 const Event* YamlEventParser::parse(const std::string& yamlSerializedEvent)
 {

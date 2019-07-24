@@ -16,7 +16,8 @@ TEST(EventParserTest, parsingBindEvent)
     "communication_type: 0"
   };
 
-  const Event* event = YamlEventParser::parse(serializedEvent);
+  YamlEventParser parser;
+  const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const BindEvent*>(event);
 }
@@ -29,7 +30,8 @@ TEST(EventParserTest, parsingConnectEvent)
     "communication_type: 0"
   };
 
-  const Event* event = YamlEventParser::parse(serializedEvent);
+  YamlEventParser parser;
+  const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const ConnectEvent*>(event);
 }
@@ -41,7 +43,8 @@ TEST(EventParserTest, parsingGroupJoinEvent)
     "group: group"
   };
 
-  const Event* event = YamlEventParser::parse(serializedEvent);
+  YamlEventParser parser;
+  const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const GroupJoinEvent*>(event);
 }
@@ -53,7 +56,8 @@ TEST(EventParserTest, parsingReceiveEvent)
     "message: msg"
   };
 
-  const Event* event = YamlEventParser::parse(serializedEvent);
+  YamlEventParser parser;
+  const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const ReceiveEvent*>(event);
 }
@@ -66,7 +70,8 @@ TEST(EventParserTest, parsingSendEvent)
     "group: group"
   };
 
-  const Event* event = YamlEventParser::parse(serializedEvent);
+  YamlEventParser parser;
+  const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const SendEvent*>(event);
 }
@@ -77,7 +82,8 @@ TEST(EventParserTest, parsingSubscribeEvent)
     "type: subscribe"
   };
 
-  const Event* event = YamlEventParser::parse(serializedEvent);
+  YamlEventParser parser;
+  const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const SubscribeEvent*>(event);
 }
@@ -88,5 +94,7 @@ TEST(EventParserTest, notParsingInvalidEvent)
     "type: invalid"
   };
 
-  EXPECT_THROW(YamlEventParser::parse(serializedEvent), UnknownEventException);
+  YamlEventParser parser;
+
+  EXPECT_THROW(parser.parse(serializedEvent), UnknownEventException);
 }
