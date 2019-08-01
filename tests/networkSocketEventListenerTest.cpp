@@ -2,12 +2,12 @@
 // Created by sst on 7/7/19.
 //
 
-#include <src/NetworkSocketEventListener.h>
+#include <NetworkSocketEventListener.h>
 #include <tests/mocks/MockEventProxy.h>
-#include <src/event/SendEvent.h>
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
-#include "src/event/Event.h"
+#include <event/SendEvent.h>
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
+#include <event/Event.h>
 
 MATCHER_P(eventEquals, event, "")
 {

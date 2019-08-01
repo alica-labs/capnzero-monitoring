@@ -1,4 +1,4 @@
-#include "sendeventfactory.h"
+#include <event/factory/sendeventfactory.h>
 
 SendEventFactory::SendEventFactory()
 {

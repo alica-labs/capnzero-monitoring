@@ -1,4 +1,4 @@
-#include "unknowneventexception.h"
+#include <exception/unknowneventexception.h>
 
 UnknownEventException::UnknownEventException(const std::string& reason): reason{reason}
 {

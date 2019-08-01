@@ -3,7 +3,7 @@
 //
 
 #include <yaml-cpp/yaml.h>
-#include "BindEvent.h"
+#include <event/BindEvent.h>
 
 BindEvent::BindEvent()
 {

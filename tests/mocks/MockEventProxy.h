@@ -2,7 +2,7 @@
 // Created by sst on 7/7/19.
 //
 
-#include <src/EventProxy.h>
+#include <EventProxy.h>
 #include <gmock/gmock.h>
 
 #ifndef CAPNZEROMONITORINGLIB_MOCKEVENTPROXY_H

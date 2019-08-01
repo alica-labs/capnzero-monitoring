@@ -6,10 +6,10 @@
 #include <gmock/gmock.h>
 #include <MonitoredPublisher.h>
 #include <zmq.h>
-#include <src/MonitorClient.h>
-#include <src/MonitoredSubscriber.h>
+#include <MonitorClient.h>
+#include <MonitoredSubscriber.h>
 #include <capnzero-base-msgs/string.capnp.h>
-#include <tests/mocks/MockEventListener.h>
+#include <MockEventListener.h>
 
 void subscriberCallback(capnp::FlatArrayMessageReader& reader)
 {

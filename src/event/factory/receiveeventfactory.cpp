@@ -1,4 +1,4 @@
-#include "receiveeventfactory.h"
+#include <event/factory/receiveeventfactory.h>
 
 ReceiveEventFactory::ReceiveEventFactory()
 {

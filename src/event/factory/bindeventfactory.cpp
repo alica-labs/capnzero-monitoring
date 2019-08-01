@@ -1,4 +1,4 @@
-#include "bindeventfactory.h"
+#include <event/factory/bindeventfactory.h>
 
 BindEventFactory::BindEventFactory()
 {

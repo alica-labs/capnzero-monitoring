@@ -6,11 +6,11 @@
 #include <zmq.h>
 #include <MockEventProxy.h>
 #include <thread>
-#include <src/MonitorClient.h>
-#include <src/MonitoredPublisher.h>
-#include <src/MonitoredSubscriber.h>
+#include <MonitorClient.h>
+#include <MonitoredPublisher.h>
+#include <MonitoredSubscriber.h>
 #include <capnzero-base-msgs/string.capnp.h>
-#include "mocks/MockEventListener.h"
+#include <MockEventListener.h>
 
 void callback(capnp::FlatArrayMessageReader& reader)
 {

@@ -1,12 +1,9 @@
 //
 // Created by sst on 7/8/19.
 //
+#pragma once
 
-#ifndef CAPNZEROMONITORINGLIB_SUBSCRIBEEVENT_H
-#define CAPNZEROMONITORINGLIB_SUBSCRIBEEVENT_H
-
-
-#include <src/event/Event.h>
+#include <event/Event.h>
 
 class SubscribeEvent : public Event
 {
@@ -17,6 +14,3 @@ public:
 
   void parse(const std::string& yamlSerializedEvent) override;
 };
-
-
-#endif //CAPNZEROMONITORINGLIB_SUBSCRIBEEVENT_H

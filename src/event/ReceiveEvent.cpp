@@ -1,5 +1,4 @@
-#include "ReceiveEvent.h"
-
+#include <event/ReceiveEvent.h>
 #include <yaml-cpp/yaml.h>
 
 ReceiveEvent::ReceiveEvent()

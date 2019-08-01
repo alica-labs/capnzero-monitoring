@@ -1,4 +1,4 @@
-#include "subscribeeventfactory.h"
+#include <event/factory/subscribeeventfactory.h>
 
 SubscribeEventFactory::SubscribeEventFactory()
 {
