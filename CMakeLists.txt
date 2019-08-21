@@ -23,58 +23,28 @@ conan_cmake_run(REQUIRES ${CONAN_REQUIREMENTS}
 add_subdirectory(submodules/capnzero/capnzero)
 
 set(SOURCES
-     # Monitored publisher
-     src/MonitoredPublisher.h
      src/MonitoredPublisher.cpp
-     # Event listener
-     src/EventListener.h
-     src/NetworkSocketEventListener.h
      src/NetworkSocketEventListener.cpp
-     # Monitor client
-     src/MonitorClient.h
      src/MonitorClient.cpp
-     # Monitored subscriber
-     src/MonitoredSubscriber.h
      src/MonitoredSubscriber.cpp
-     src/MonitoredCallback.cpp
-     src/MonitoredCallback.h
-     # Proxy
-     src/EventProxy.h
+     src/SimpleMonitoredCallback.cpp
+     src/ComplexMonitoredCallback.cpp
      src/RelayEventProxy.cpp
-     src/RelayEventProxy.h
-     # Events
-     src/event/Event.h
      src/event/GroupJoinEvent.cpp
-     src/event/GroupJoinEvent.h
      src/event/ConnectEvent.cpp
-     src/event/ConnectEvent.h
      src/event/SendEvent.cpp
-     src/event/SendEvent.h
      src/event/BindEvent.cpp
-     src/event/BindEvent.h
      src/event/SubscribeEvent.cpp
-     src/event/SubscribeEvent.h
      src/event/ReceiveEvent.cpp
-     src/event/ReceiveEvent.h
      src/event/yamleventparser.cpp
-     src/event/yamleventparser.h
-     # Event factories
-     src/event/factory/eventfactory.h
      src/event/factory/bindeventfactory.cpp
-     src/event/factory/bindeventfactory.h
      src/event/factory/connecteventfactory.cpp
      src/event/factory/connecteventfactory.cpp
      src/event/factory/groupjoineventfactory.cpp
-     src/event/factory/groupjoineventfactory.h
      src/event/factory/receiveeventfactory.cpp
-     src/event/factory/receiveeventfactory.h
      src/event/factory/sendeventfactory.cpp
-     src/event/factory/sendeventfactory.h
      src/event/factory/subscribeeventfactory.cpp
-     src/event/factory/subscribeeventfactory.h
-     # Exceptions
      src/exception/unknowneventexception.cpp
-     src/exception/unknowneventexception.h
      )
 
 add_library(${PROJECT_NAME} ${SOURCES})
@@ -84,8 +54,8 @@ target_include_directories(${PROJECT_NAME}
                                 $<INSTALL_INTERFACE:include>
                                 $<BUILD_INTERFACE:
                                   ${CMAKE_CURRENT_SOURCE_DIR}/include
-                                  submodules/capnzero/capnzero/include
-                                  ${CMAKE_CURRENT_SOURCE_DIR}/src>
+                                  ${CMAKE_CURRENT_SOURCE_DIR}/src
+                                  submodules/capnzero/capnzero/include>
                               PRIVATE
                                 src
                            )

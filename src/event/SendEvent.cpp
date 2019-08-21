@@ -3,7 +3,7 @@
 //
 
 #include <yaml-cpp/yaml.h>
-#include "SendEvent.h"
+#include <event/SendEvent.h>
 
 SendEvent::SendEvent()
 {

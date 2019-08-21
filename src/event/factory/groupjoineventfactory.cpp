@@ -1,4 +1,4 @@
-#include "groupjoineventfactory.h"
+#include <event/factory/groupjoineventfactory.h>
 
 GroupJoinEventFactory::GroupJoinEventFactory()
 {

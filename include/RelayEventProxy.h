@@ -7,7 +7,7 @@
 
 
 #include <capnzero/Publisher.h>
-#include <src/event/Event.h>
+#include <event/Event.h>
 #include "EventProxy.h"
 
 class RelayEventProxy : public EventProxy

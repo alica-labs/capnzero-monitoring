@@ -1,10 +1,6 @@
-//
-// Created by sst on 24.06.19.
-//
-
-
 #include <capnzero-base-msgs/string.capnp.h>
-#include "MonitoredCallback.h"
+#include <ComplexMonitoredCallback.h>
+#include "SimpleMonitoredCallback.h"
 #include "MonitoredSubscriber.h"
 #include "RelayEventProxy.h"
 #include "event/GroupJoinEvent.h"
@@ -20,7 +16,11 @@ MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, const std::string& gr
 
 MonitoredSubscriber::~MonitoredSubscriber()
 {
-  delete messageCallback;
+  for(auto callback : messageCallback)
+  {
+   delete callback;
+  }
+
   delete eventListener;
 }
 
@@ -34,10 +34,13 @@ void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string
 
 void MonitoredSubscriber::subscribe(void (* callback)(capnp::FlatArrayMessageReader&))
 {
-  messageCallback = new MonitoredCallback(eventListener, callback);
+  MonitoredCallback* currentCallback = new SimpleMonitoredCallback(eventListener, callback);
+  messageCallback.push_back(currentCallback);
 
   SubscribeEvent event;
   eventListener->notify(event);
 
-  subscriber.subscribe(&MonitoredCallback::monitoredCallback, messageCallback);
+  subscriber.subscribe(&MonitoredCallback::monitoredFunction, currentCallback);
 }
+
+

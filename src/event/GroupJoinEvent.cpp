@@ -3,7 +3,7 @@
 //
 
 #include <yaml-cpp/yaml.h>
-#include "GroupJoinEvent.h"
+#include <event/GroupJoinEvent.h>
 
 GroupJoinEvent::GroupJoinEvent()
 {

@@ -3,7 +3,7 @@
 //
 
 #include <yaml-cpp/yaml.h>
-#include "ConnectEvent.h"
+#include <event/ConnectEvent.h>
 
 ConnectEvent::ConnectEvent()
 {

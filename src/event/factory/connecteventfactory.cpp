@@ -1,4 +1,4 @@
-#include "connecteventfactory.h"
+#include <event/factory/connecteventfactory.h>
 
 ConnectEventFactory::ConnectEventFactory()
 {

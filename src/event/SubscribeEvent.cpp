@@ -3,7 +3,7 @@
 //
 
 #include <yaml-cpp/yaml.h>
-#include "SubscribeEvent.h"
+#include <event/SubscribeEvent.h>
 
 SubscribeEvent::SubscribeEvent()
 {
