@@ -3,7 +3,6 @@
 
 #pragma once
 
-
 class MonitoredCallback
 {
 public:

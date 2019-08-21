@@ -24,6 +24,9 @@ public:
 
   void subscribe(void (* fun)(capnp::FlatArrayMessageReader&));
 
+  template <class CallbackObjType>
+  void subscribe(void (CallbackObjType::*callbackFunction)(::capnp::FlatArrayMessageReader&), CallbackObjType* callbackObject);
+
 private:
   capnzero::Subscriber subscriber;
   EventListener *eventListener;

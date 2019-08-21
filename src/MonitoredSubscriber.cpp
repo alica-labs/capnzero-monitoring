@@ -41,3 +41,18 @@ void MonitoredSubscriber::subscribe(void (* callback)(capnp::FlatArrayMessageRea
 
   subscriber.subscribe(&MonitoredCallback::monitoredCallback, messageCallback);
 }
+
+template<class CallbackObjType>
+void MonitoredSubscriber::subscribe(void (CallbackObjType::*callbackFunction)(capnp::FlatArrayMessageReader&), CallbackObjType* callbackObject)
+{
+  /*
+    Unterscheidung in SimpleMonitoredCallback und ComplexMonitoredCallback, per Interface MonitoredCallback einbinden
+    ComplexMonitoredCallback (notwendigerweise Template, da Objekttyp beliebig) erhält aufzurufende Funktion, Objekt und EventListener
+    monitoredCallback-Methode des ComplexMonitoredCallback ruft übergebene Funktion auf übergebenem Objekt auf
+   */
+
+  SubscribeEvent event;
+  eventListener->notify(event);
+
+  subscriber.subscribe(&MonitoredCallback::monitoredCallback, messageCallback);
+}
