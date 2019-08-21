@@ -28,6 +28,7 @@ set(SOURCES
      src/MonitorClient.cpp
      src/MonitoredSubscriber.cpp
      src/SimpleMonitoredCallback.cpp
+     src/ComplexMonitoredCallback.cpp
      src/RelayEventProxy.cpp
      src/event/GroupJoinEvent.cpp
      src/event/ConnectEvent.cpp

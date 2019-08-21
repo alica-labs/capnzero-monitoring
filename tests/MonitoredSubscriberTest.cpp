@@ -1,7 +1,3 @@
-//
-// Created by sst on 7/8/19.
-//
-
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <MonitoredPublisher.h>
@@ -10,6 +6,23 @@
 #include <MonitoredSubscriber.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <MockEventListener.h>
+
+class MyComplexCallback
+{
+public:
+  MyComplexCallback() : counter {0}
+  {}
+
+  void monitor(capnp::FlatArrayMessageReader& reader)
+  {
+    const std::string message = reader.getRoot<capnzero::String>().getString();
+    std::cout << "Message received: \"" << message << "\"" << std::endl;
+
+    counter++;
+  }
+
+  int counter;
+};
 
 void subscriberCallback(capnp::FlatArrayMessageReader& reader)
 {
@@ -54,4 +67,33 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   publisher.send("Message", group);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+}
+
+
+TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
+{
+  void* zmqContext = zmq_ctx_new();
+  const std::string address{"127.0.0.1:7890"};
+  const std::string group{"newgroup"};
+
+  MockEventListener *subListener = new MockEventListener();
+  EXPECT_CALL(*subListener, notify).Times(4);
+
+  MockEventListener *pubListener = new MockEventListener();
+
+  MonitoredPublisher publisher(zmqContext, pubListener);
+  publisher.bind(capnzero::CommType::UDP, address);
+
+  MonitoredSubscriber subscriber(zmqContext, group, subListener);
+
+  subscriber.connect(capnzero::CommType::UDP, address);
+
+  MyComplexCallback* callbackObject = new MyComplexCallback();
+  subscriber.subscribe<MyComplexCallback>(&MyComplexCallback::monitor, callbackObject);
+  publisher.send("Message", group);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  ASSERT_EQ(callbackObject->counter, 1);
+  delete callbackObject;
 }

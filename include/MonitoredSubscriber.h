@@ -1,17 +1,13 @@
-//
-// Created by sst on 24.06.19.
-//
+#pragma once
 
-#ifndef ZMQMONITORING_MONITOREDSUBSCRIBER_H
-#define ZMQMONITORING_MONITOREDSUBSCRIBER_H
+#include "ComplexMonitoredCallback.h"
 
-
-#include "EventListener.h"
-#include "SimpleMonitoredCallback.h"
-
+#include <EventListener.h>
+#include <MonitoredCallback.h>
 #include <capnp/serialize.h>
 #include <capnzero/Subscriber.h>
-
+#include <event/SubscribeEvent.h>
+#include <vector>
 
 class MonitoredSubscriber
 {
@@ -22,16 +18,22 @@ public:
 
   void connect(capnzero::CommType commType, const std::string& address);
 
-  void subscribe(void (* fun)(capnp::FlatArrayMessageReader&));
+  void subscribe(void (* callbackFunction)(capnp::FlatArrayMessageReader&));
 
-  template <class CallbackObjType>
-  void subscribe(void (CallbackObjType::*callbackFunction)(::capnp::FlatArrayMessageReader&), CallbackObjType* callbackObject);
+  template <typename CallbackObjectType>
+  void subscribe(void (CallbackObjectType::*callbackFunction)(capnp::FlatArrayMessageReader&), CallbackObjectType* callbackObject)
+  {
+    MonitoredCallback* currentCallback = new ComplexMonitoredCallback<CallbackObjectType>(eventListener, callbackFunction, callbackObject);
+    messageCallback.push_back(currentCallback);
+
+    SubscribeEvent event;
+    eventListener->notify(event);
+
+    subscriber.subscribe(&MonitoredCallback::monitoredFunction, currentCallback);
+  }
 
 private:
   capnzero::Subscriber subscriber;
   EventListener *eventListener;
-  SimpleMonitoredCallback* messageCallback;
+  std::vector<MonitoredCallback*> messageCallback;
 };
-
-
-#endif //ZMQMONITORING_MONITOREDSUBSCRIBER_H
