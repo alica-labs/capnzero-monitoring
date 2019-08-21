@@ -4,7 +4,7 @@
 
 
 #include <capnzero-base-msgs/string.capnp.h>
-#include "MonitoredCallback.h"
+#include "SimpleMonitoredCallback.h"
 #include "MonitoredSubscriber.h"
 #include "RelayEventProxy.h"
 #include "event/GroupJoinEvent.h"
@@ -34,12 +34,12 @@ void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string
 
 void MonitoredSubscriber::subscribe(void (* callback)(capnp::FlatArrayMessageReader&))
 {
-  messageCallback = new MonitoredCallback(eventListener, callback);
+  messageCallback = new SimpleMonitoredCallback(eventListener, callback);
 
   SubscribeEvent event;
   eventListener->notify(event);
 
-  subscriber.subscribe(&MonitoredCallback::monitoredCallback, messageCallback);
+  subscriber.subscribe(&SimpleMonitoredCallback::monitoredFunction, messageCallback);
 }
 
 template<class CallbackObjType>
@@ -54,5 +54,5 @@ void MonitoredSubscriber::subscribe(void (CallbackObjType::*callbackFunction)(ca
   SubscribeEvent event;
   eventListener->notify(event);
 
-  subscriber.subscribe(&MonitoredCallback::monitoredCallback, messageCallback);
+  subscriber.subscribe(&SimpleMonitoredCallback::monitoredFunction, messageCallback);
 }

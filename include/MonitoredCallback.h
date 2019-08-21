@@ -1,17 +1,12 @@
-#include "NetworkSocketEventListener.h"
-#include <functional>
+#include <capnp/serialize.h>
 
 #pragma once
 
 class MonitoredCallback
 {
 public:
-  MonitoredCallback(EventListener* eventListener, std::function<void(::capnp::FlatArrayMessageReader&)> callback);
+  virtual ~MonitoredCallback() = default;
 
-  void monitoredCallback(capnp::FlatArrayMessageReader& reader);
-
-private:
-  EventListener *eventListener;
-  std::function<void (::capnp::FlatArrayMessageReader&)> callback;
+  virtual void monitoredFunction(capnp::FlatArrayMessageReader& reader) = 0;
 };
 

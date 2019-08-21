@@ -27,7 +27,7 @@ set(SOURCES
      src/NetworkSocketEventListener.cpp
      src/MonitorClient.cpp
      src/MonitoredSubscriber.cpp
-     src/MonitoredCallback.cpp
+     src/SimpleMonitoredCallback.cpp
      src/RelayEventProxy.cpp
      src/event/GroupJoinEvent.cpp
      src/event/ConnectEvent.cpp

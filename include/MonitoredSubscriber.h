@@ -7,7 +7,7 @@
 
 
 #include "EventListener.h"
-#include "MonitoredCallback.h"
+#include "SimpleMonitoredCallback.h"
 
 #include <capnp/serialize.h>
 #include <capnzero/Subscriber.h>
@@ -30,7 +30,7 @@ public:
 private:
   capnzero::Subscriber subscriber;
   EventListener *eventListener;
-  MonitoredCallback* messageCallback;
+  SimpleMonitoredCallback* messageCallback;
 };
 
 
