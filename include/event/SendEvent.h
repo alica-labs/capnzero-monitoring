@@ -1,12 +1,6 @@
-//
-// Created by sst on 7/8/19.
-//
+#pragma once
 
-#ifndef CAPNZEROMONITORINGLIB_SENDEVENT_H
-#define CAPNZEROMONITORINGLIB_SENDEVENT_H
-
-
-#include "Event.h"
+#include <event/Event.h>
 
 class SendEvent : public Event
 {
@@ -23,6 +17,3 @@ private:
   std::string message;
   std::string groupName;
 };
-
-
-#endif //CAPNZEROMONITORINGLIB_SENDEVENT_H

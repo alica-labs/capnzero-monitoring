@@ -1,6 +1,6 @@
-#include <capnp/serialize.h>
-
 #pragma once
+
+#include <capnp/serialize.h>
 
 class MonitoredCallback
 {

@@ -1,14 +1,8 @@
-//
-// Created by sst on 7/7/19.
-//
-
-#ifndef CAPNZEROMONITORINGLIB_RELAYEVENTPROXY_H
-#define CAPNZEROMONITORINGLIB_RELAYEVENTPROXY_H
-
+#pragma once
 
 #include <capnzero/Publisher.h>
 #include <event/Event.h>
-#include "EventProxy.h"
+#include <EventProxy.h>
 
 class RelayEventProxy : public EventProxy
 {
@@ -22,6 +16,3 @@ private:
   std::string monitoringGroup;
   std::string monitoringAddress;
 };
-
-
-#endif //CAPNZEROMONITORINGLIB_RELAYEVENTPROXY_H

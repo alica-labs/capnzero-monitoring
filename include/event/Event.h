@@ -1,10 +1,4 @@
-//
-// Created by sst on 7/8/19.
-//
-
-#ifndef CAPNZEROMONITORINGLIB_EVENT_H
-#define CAPNZEROMONITORINGLIB_EVENT_H
-
+#pragma once
 
 #include <string>
 
@@ -20,6 +14,3 @@ public:
 protected:
   std::string type;
 };
-
-
-#endif //CAPNZEROMONITORINGLIB_EVENT_H

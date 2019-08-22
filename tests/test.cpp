@@ -1,7 +1,3 @@
-//
-// Created by sst on 24.06.19.
-//
-
 #include <gtest/gtest.h>
 #include <zmq.h>
 #include <MockEventProxy.h>
@@ -11,6 +7,9 @@
 #include <MonitoredSubscriber.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <MockEventListener.h>
+#include <NetworkSocketEventListener.h>
+#include <RelayEventProxy.h>
+#include <event/yamleventparser.h>
 
 void callback(capnp::FlatArrayMessageReader& reader)
 {
@@ -73,8 +72,9 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   void* ctx = zmq_ctx_new();
   const std::string group {"group"};
   const std::string address {"127.0.0.1:7890"};
+  EventParser* eventParser = new YamlEventParser();
 
-  MonitorClient monitorClient(ctx);
+  MonitorClient monitorClient(ctx, eventParser);
   monitorClient.start();
 
   RelayEventProxy *proxy = new RelayEventProxy(ctx);

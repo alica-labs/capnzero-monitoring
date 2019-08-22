@@ -1,7 +1,3 @@
-//
-// Created by sst on 7/8/19.
-//
-
 #include <yaml-cpp/yaml.h>
 #include <event/GroupJoinEvent.h>
 

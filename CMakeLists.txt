@@ -51,7 +51,8 @@ add_library(${PROJECT_NAME} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME}
                               PUBLIC
-                                $<INSTALL_INTERFACE:include>
+                                $<INSTALL_INTERFACE:
+                                  ${CMAKE_CURRENT_SOURCE_DIR}/include>
                                 $<BUILD_INTERFACE:
                                   ${CMAKE_CURRENT_SOURCE_DIR}/include
                                   ${CMAKE_CURRENT_SOURCE_DIR}/src

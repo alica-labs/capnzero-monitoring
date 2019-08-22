@@ -1,8 +1,7 @@
-#include "eventfactory.h"
-#include <event/BindEvent.h>
-
 #pragma once
 
+#include <event/factory/eventfactory.h>
+#include <event/BindEvent.h>
 
 class BindEventFactory : public EventFactory
 {

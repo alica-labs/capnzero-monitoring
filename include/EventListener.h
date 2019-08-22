@@ -1,7 +1,6 @@
-#include <event/Event.h>
-
 #pragma once
 
+#include <event/Event.h>
 
 class EventListener
 {

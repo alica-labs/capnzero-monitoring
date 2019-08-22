@@ -1,10 +1,4 @@
-//
-// Created by sst on 7/7/19.
-//
-
-#ifndef CAPNZEROMONITORINGLIB_EVENTPROXY_H
-#define CAPNZEROMONITORINGLIB_EVENTPROXY_H
-
+#pragma once
 
 #include <string>
 #include <event/Event.h>
@@ -16,6 +10,3 @@ public:
 
   virtual void notifyClient(const Event& event) = 0;
 };
-
-
-#endif //CAPNZEROMONITORINGLIB_EVENTPROXY_H
