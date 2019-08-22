@@ -1,6 +1,3 @@
-//
-// Created by sst on 7/8/19.
-//
 #pragma once
 
 #include <event/Event.h>

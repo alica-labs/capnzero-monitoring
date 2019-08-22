@@ -1,9 +1,5 @@
-//
-// Created by sst on 7/7/19.
-//
-
 #include <capnzero-base-msgs/string.capnp.h>
-#include "RelayEventProxy.h"
+#include <RelayEventProxy.h>
 
 RelayEventProxy::RelayEventProxy(void* zmqContext, const std::string& monitoringGroup, const std::string& monitoringAddress) :
   publisher(zmqContext), monitoringGroup{monitoringGroup}, monitoringAddress{monitoringAddress}

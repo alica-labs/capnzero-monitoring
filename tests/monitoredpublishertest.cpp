@@ -1,7 +1,3 @@
-//
-// Created by sst on 24.06.19.
-//
-
 #include <gtest/gtest.h>
 #include <MockEventListener.h>
 #include <MonitoredPublisher.h>

@@ -1,15 +1,9 @@
-//
-// Created by sst on 24.06.19.
-//
-
-#ifndef LIBZMQMONITORING_SOCKETEVENTLISTENER_H
-#define LIBZMQMONITORING_SOCKETEVENTLISTENER_H
+#pragma once
 
 #include <string>
 #include <event/Event.h>
-#include "EventListener.h"
-#include "EventProxy.h"
-#include "RelayEventProxy.h"
+#include <EventListener.h>
+#include <EventProxy.h>
 
 class NetworkSocketEventListener : public EventListener
 {
@@ -23,6 +17,3 @@ public:
 private:
   EventProxy* proxy;
 };
-
-
-#endif //LIBZMQMONITORING_SOCKETEVENTLISTENER_H

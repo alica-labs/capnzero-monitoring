@@ -1,18 +1,15 @@
-//
-// Created by sst on 24.06.19.
-//
-
-#ifndef ZMQMONITORING_MONITORCLIENT_H
-#define ZMQMONITORING_MONITORCLIENT_H
+#pragma once
 
 #include <capnzero/CapnZero.h>
 #include <event/Event.h>
-#include <event/yamleventparser.h>
+#include <event/eventparser.h>
 
 class MonitorClient
 {
 public:
-  MonitorClient(void* zmqContext, const std::string& monitoringAddress = "127.0.0.1:9876", const std::string& monitoringGroup = "monitoring");
+  MonitorClient(void* zmqContext, EventParser* eventParser,
+                const std::string& monitoringAddress = "127.0.0.1:9876",
+                const std::string& monitoringGroup = "monitoring");
 
   ~MonitorClient();
 
@@ -27,8 +24,5 @@ private:
   std::string monitoringAddress;
   std::string monitoringGroup;
   std::vector<const Event*> events;
-  YamlEventParser yamlEventParser;
+  EventParser* eventParser;
 };
-
-
-#endif //ZMQMONITORING_MONITORCLIENT_H

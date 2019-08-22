@@ -3,6 +3,10 @@
 #include <MockEventListener.h>
 #include <MonitorClient.h>
 #include <MonitoredPublisher.h>
+#include <NetworkSocketEventListener.h>
+#include <RelayEventProxy.h>
+
+#include <event/yamleventparser.h>
 
 TEST(MonitorClientTest, testReceiveSingleEvent)
 {
@@ -11,8 +15,9 @@ TEST(MonitorClientTest, testReceiveSingleEvent)
   RelayEventProxy *proxy = new RelayEventProxy(zmqCtx);
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredPublisher pub(zmqCtx, listener);
+  EventParser* eventParser = new YamlEventParser();
 
-  MonitorClient monitor(zmqCtx);
+  MonitorClient monitor(zmqCtx, eventParser);
   monitor.start();
 
   pub.bind(capnzero::CommType::UDP, "127.0.0.1:18923");
@@ -31,8 +36,9 @@ TEST(MonitorClientTest, testReceiveMultipleEvents)
   RelayEventProxy *proxy = new RelayEventProxy(zmqCtx);
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredPublisher pub(zmqCtx, listener);
+  EventParser* eventParser = new YamlEventParser();
 
-  MonitorClient monitor(zmqCtx);
+  MonitorClient monitor(zmqCtx, eventParser);
   monitor.start();
 
   pub.bind(capnzero::CommType::UDP, "127.0.0.1:18923");

@@ -1,11 +1,7 @@
-//
-// Created by sst on 24.06.19.
-//
+#pragma once
 
-#ifndef LIBZMQMONITORING_MONITOREDPUBLISHER_H
-#define LIBZMQMONITORING_MONITOREDPUBLISHER_H
-
-#include "NetworkSocketEventListener.h"
+#include <EventListener.h>
+#include <capnzero/Publisher.h>
 
 class MonitoredPublisher
 {
@@ -22,6 +18,3 @@ private:
   capnzero::Publisher publisher;
   EventListener* eventListener;
 };
-
-
-#endif //LIBZMQMONITORING_MONITOREDPUBLISHER_H

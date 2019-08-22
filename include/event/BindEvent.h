@@ -1,13 +1,7 @@
-//
-// Created by sst on 7/8/19.
-//
-
-#ifndef CAPNZEROMONITORINGLIB_BINDEVENT_H
-#define CAPNZEROMONITORINGLIB_BINDEVENT_H
-
+#pragma once
 
 #include <capnzero/Common.h>
-#include "Event.h"
+#include <event/Event.h>
 
 class BindEvent : public Event
 {
@@ -24,6 +18,3 @@ private:
   std::string address;
   capnzero::CommType commType;
 };
-
-
-#endif //CAPNZEROMONITORINGLIB_BINDEVENT_H

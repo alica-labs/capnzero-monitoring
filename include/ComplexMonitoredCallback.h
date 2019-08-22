@@ -1,10 +1,10 @@
+#pragma once
+
 #include <EventListener.h>
 #include <MonitoredCallback.h>
 #include <functional>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <event/ReceiveEvent.h>
-
-#pragma once
 
 template<typename CallbackObjectType>
 class ComplexMonitoredCallback : public MonitoredCallback

@@ -1,7 +1,7 @@
+#pragma once
+
 #include <exception>
 #include <string>
-
-#pragma once
 
 class UnknownEventException : public std::exception
 {

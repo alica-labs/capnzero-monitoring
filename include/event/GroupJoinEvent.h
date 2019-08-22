@@ -1,12 +1,6 @@
-//
-// Created by sst on 7/8/19.
-//
+#pragma once
 
-#ifndef CAPNZEROMONITORINGLIB_GROUPJOINEVENT_H
-#define CAPNZEROMONITORINGLIB_GROUPJOINEVENT_H
-
-
-#include "Event.h"
+#include <event/Event.h>
 
 class GroupJoinEvent : public Event
 {
@@ -22,6 +16,3 @@ public:
 private:
   std::string groupName;
 };
-
-
-#endif //CAPNZEROMONITORINGLIB_GROUPJOINEVENT_H

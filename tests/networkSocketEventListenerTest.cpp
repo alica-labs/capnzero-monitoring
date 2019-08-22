@@ -1,7 +1,3 @@
-//
-// Created by sst on 7/7/19.
-//
-
 #include <NetworkSocketEventListener.h>
 #include <tests/mocks/MockEventProxy.h>
 #include <event/SendEvent.h>

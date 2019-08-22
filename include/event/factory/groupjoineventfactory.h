@@ -1,9 +1,7 @@
-#include "eventfactory.h"
-
-#include <event/GroupJoinEvent.h>
-
 #pragma once
 
+#include <event/factory/eventfactory.h>
+#include <event/GroupJoinEvent.h>
 
 class GroupJoinEventFactory : public EventFactory
 {

@@ -1,19 +1,15 @@
-//
-// Created by sst on 24.06.19.
-//
-
 #include <iostream>
 #include <thread>
 #include <capnp/serialize.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <capnzero/Common.h>
-#include "MonitorClient.h"
+#include <MonitorClient.h>
 #include <event/yamleventparser.h>
 
-MonitorClient::MonitorClient(void* zmqContext, const std::string& monitoringAddress, const std::string& monitoringGroup) :
-  subscriber(zmqContext, monitoringGroup), monitoringAddress {monitoringAddress}, monitoringGroup {monitoringGroup}
-{
-}
+
+MonitorClient::MonitorClient(void* zmqContext, EventParser* eventParser, const std::string& monitoringAddress, const std::string& monitoringGroup):
+  subscriber(zmqContext, monitoringGroup), eventParser(eventParser), monitoringAddress {monitoringAddress}, monitoringGroup {monitoringGroup}
+{}
 
 MonitorClient::~MonitorClient()
 {
@@ -21,6 +17,8 @@ MonitorClient::~MonitorClient()
   {
     delete event;
   }
+
+  delete eventParser;
 }
 
 void MonitorClient::start()
@@ -43,7 +41,7 @@ void MonitorClient::appendEvent(capnp::FlatArrayMessageReader& reader)
 
   std::cout << "MONITOR_CLIENT got event:" << std::endl << message << std::endl << std::endl;
 
-  const Event* event = yamlEventParser.parse(message);
+  const Event* event = eventParser->parse(message);
 
   events.push_back(event);
 }

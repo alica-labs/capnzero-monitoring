@@ -1,10 +1,6 @@
-//
-// Created by sst on 24.06.19.
-//
-
 #include <capnzero/CapnZero.h>
 #include <capnzero-base-msgs/string.capnp.h>
-#include "MonitoredPublisher.h"
+#include <MonitoredPublisher.h>
 #include <event/SendEvent.h>
 #include <event/BindEvent.h>
 
