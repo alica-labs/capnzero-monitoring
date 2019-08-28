@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(capnzeroMonitoringLib VERSION 1.0.0 LANGUAGES CXX)
+project(capnzeroMonitoring VERSION 1.0.0 LANGUAGES CXX)
 
 add_compile_definitions(ZMQ_BUILD_DRAFT_API)
 
@@ -47,7 +47,7 @@ set(SOURCES
      src/exception/unknowneventexception.cpp
      )
 
-add_library(${PROJECT_NAME} ${SOURCES})
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_include_directories(${PROJECT_NAME}
                               PUBLIC
@@ -66,8 +66,10 @@ target_link_libraries(${PROJECT_NAME}
                             pthread
                             CONAN_PKG::yaml-cpp
                             capnzero
-                            capnzero-base-msgs)
+                            capnzero-base-msgs
+                      )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+target_compile_options(${PROJECT_NAME} PRIVATE -fPIC)
 
 add_subdirectory(tests)
