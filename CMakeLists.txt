@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(capnzeroMonitoring VERSION 1.0.0 LANGUAGES CXX)
+project(capnzero-monitoring VERSION 1.0.0 LANGUAGES CXX)
 
 add_compile_definitions(ZMQ_BUILD_DRAFT_API)
 
