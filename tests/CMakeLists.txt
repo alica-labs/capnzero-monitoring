@@ -1,7 +1,7 @@
 cmake_minimum_required( VERSION 3.13 )
-project( capnzeroMonitoringTest )
+project( capnzero-monitoring-test )
 
-set( SOURCES
+set(SOURCES
      test.cpp
      networkSocketEventListenerTest.cpp
      MonitoredSubscriberTest.cpp
