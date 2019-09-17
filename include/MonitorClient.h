@@ -1,13 +1,14 @@
 #pragma once
 
-#include <capnzero/CapnZero.h>
 #include <event/Event.h>
 #include <event/eventparser.h>
+#include <capnzero/Subscriber.h>
 
 class MonitorClient
 {
 public:
-  MonitorClient(void* zmqContext, EventParser* eventParser,
+  MonitorClient(void* zmqContext,
+                EventParser* eventParser,
                 const std::string& monitoringAddress = "127.0.0.1:9876",
                 const std::string& monitoringGroup = "monitoring");
 
@@ -15,7 +16,7 @@ public:
 
   void start();
 
-  const std::vector<const Event*> getEvents() const;
+  const std::vector<const Event*> retrieveEvents();
 
   void appendEvent(::capnp::FlatArrayMessageReader& reader);
 

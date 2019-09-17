@@ -3,17 +3,17 @@
 #include <capnzero/Common.h>
 #include <event/Event.h>
 
-class ConnectEvent : public Event
+class CreateEvent : public Event
 {
 public:
-  ConnectEvent();
+  CreateEvent();
 
-  ConnectEvent(const std::string& address);
+  CreateEvent(capnzero::Protocol protocol);
 
   const std::string toYaml() const;
 
   void parse(const std::string& yamlSerializedEvent) override;
 
 private:
-  std::string address;
+  capnzero::Protocol protocol;
 };

@@ -2,10 +2,10 @@
 #include <RelayEventProxy.h>
 
 RelayEventProxy::RelayEventProxy(void* zmqContext, const std::string& monitoringGroup, const std::string& monitoringAddress) :
-  publisher(zmqContext), monitoringGroup{monitoringGroup}, monitoringAddress{monitoringAddress}
+  publisher(zmqContext, capnzero::Protocol::UDP), monitoringGroup{monitoringGroup}, monitoringAddress{monitoringAddress}
 {
-  publisher.setDefaultGroup(monitoringGroup);
-  publisher.bind(capnzero::CommType::UDP, monitoringAddress);
+  publisher.setDefaultTopic(monitoringGroup);
+  publisher.addAddress(monitoringAddress);
 }
 
 void RelayEventProxy::notifyClient(const Event& event)

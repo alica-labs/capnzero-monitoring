@@ -6,7 +6,7 @@
 class SendEventFactory : public EventFactory
 {
 public:
-  SendEventFactory();
+  SendEventFactory() = default;
 
   // EventFactory interface
 public:

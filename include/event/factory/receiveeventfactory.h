@@ -6,7 +6,7 @@
 class ReceiveEventFactory : public EventFactory
 {
 public:
-  ReceiveEventFactory();
+  ReceiveEventFactory() = default;
 
   // EventFactory interface
 public:

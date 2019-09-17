@@ -1,5 +1,6 @@
 #include <capnzero-base-msgs/string.capnp.h>
 #include <ComplexMonitoredCallback.h>
+#include <event/createevent.h>
 #include "SimpleMonitoredCallback.h"
 #include "MonitoredSubscriber.h"
 #include "RelayEventProxy.h"
@@ -7,10 +8,10 @@
 #include "event/ConnectEvent.h"
 #include "event/SubscribeEvent.h"
 
-MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, const std::string& group, EventListener* listener) :
-  subscriber(zmqContext, group), eventListener(listener)
+MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, capnzero::Protocol protocol, EventListener* listener) :
+  subscriber(zmqContext, protocol), eventListener(listener)
 {
-  GroupJoinEvent event(group);
+  CreateEvent event(protocol);
   eventListener->notify(event);
 }
 
@@ -24,11 +25,19 @@ MonitoredSubscriber::~MonitoredSubscriber()
   delete eventListener;
 }
 
-void MonitoredSubscriber::connect(capnzero::CommType commType, const std::string& address)
+void MonitoredSubscriber::setTopic(const std::string& topic)
 {
-  subscriber.connect(commType, address);
+  GroupJoinEvent event(topic);
+  eventListener->notify(event);
 
-  ConnectEvent event(address, commType);
+  subscriber.setTopic(topic);
+}
+
+void MonitoredSubscriber::connect(const std::string& address)
+{
+  subscriber.addAddress(address);
+
+  ConnectEvent event(address);
   eventListener->notify(event);
 }
 

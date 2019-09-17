@@ -6,7 +6,7 @@
 class ConnectEventFactory : public EventFactory
 {
 public:
-  ConnectEventFactory();
+  ConnectEventFactory() = default;
 
   // EventFactory interface
 public:

@@ -6,7 +6,7 @@
 class GroupJoinEventFactory : public EventFactory
 {
 public:
-  GroupJoinEventFactory();
+  GroupJoinEventFactory() = default;
 
   // EventFactory interface
 public:

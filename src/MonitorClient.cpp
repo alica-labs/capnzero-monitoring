@@ -8,7 +8,7 @@
 
 
 MonitorClient::MonitorClient(void* zmqContext, EventParser* eventParser, const std::string& monitoringAddress, const std::string& monitoringGroup):
-  subscriber(zmqContext, monitoringGroup), eventParser(eventParser), monitoringAddress {monitoringAddress}, monitoringGroup {monitoringGroup}
+  subscriber(zmqContext, capnzero::Protocol::UDP), eventParser(eventParser), monitoringAddress {monitoringAddress}, monitoringGroup {monitoringGroup}
 {}
 
 MonitorClient::~MonitorClient()
@@ -23,16 +23,21 @@ MonitorClient::~MonitorClient()
 
 void MonitorClient::start()
 {
-  subscriber.connect(capnzero::CommType::UDP, monitoringAddress);
+  subscriber.addAddress(monitoringAddress);
+  subscriber.setTopic(monitoringGroup);
 
   std::cout << "MONITOR_CLIENT connected to " << monitoringAddress << std::endl;
 
   subscriber.subscribe(&MonitorClient::appendEvent, this);
 }
 
-const std::vector<const Event*> MonitorClient::getEvents() const
+const std::vector<const Event*> MonitorClient::retrieveEvents()
 {
-  return events;
+  std::vector<const Event*> localEvents = events;
+
+  events.clear();
+
+  return localEvents;
 }
 
 void MonitorClient::appendEvent(capnp::FlatArrayMessageReader& reader)
