@@ -47,6 +47,7 @@ set(SOURCES
      src/event/factory/subscribeeventfactory.cpp
      src/event/factory/createeventfactory.cpp
      src/exception/unknowneventexception.cpp
+     src/config/monitorconfiguration.cpp
      )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})

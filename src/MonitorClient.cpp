@@ -6,9 +6,8 @@
 #include <MonitorClient.h>
 #include <event/yamleventparser.h>
 
-
-MonitorClient::MonitorClient(void* zmqContext, EventParser* eventParser, const std::string& monitoringAddress, const std::string& monitoringGroup):
-  subscriber(zmqContext, capnzero::Protocol::UDP), eventParser(eventParser), monitoringAddress {monitoringAddress}, monitoringGroup {monitoringGroup}
+MonitorClient::MonitorClient(void* zmqContext, EventParser* eventParser, MonitorConfiguration monitorConfig):
+  subscriber(zmqContext, capnzero::Protocol::UDP), eventParser(eventParser), configuration(monitorConfig)
 {}
 
 MonitorClient::~MonitorClient()
@@ -23,10 +22,10 @@ MonitorClient::~MonitorClient()
 
 void MonitorClient::start()
 {
-  subscriber.addAddress(monitoringAddress);
-  subscriber.setTopic(monitoringGroup);
+  subscriber.addAddress(configuration.address);
+  subscriber.setTopic(configuration.topic);
 
-  std::cout << "MONITOR_CLIENT connected to " << monitoringAddress << std::endl;
+  std::cout << "MONITOR_CLIENT connected to " << configuration.address << std::endl;
 
   subscriber.subscribe(&MonitorClient::appendEvent, this);
 }
