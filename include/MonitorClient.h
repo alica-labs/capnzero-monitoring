@@ -3,14 +3,12 @@
 #include <event/Event.h>
 #include <event/eventparser.h>
 #include <capnzero/Subscriber.h>
+#include <config/monitorconfiguration.h>
 
 class MonitorClient
 {
 public:
-  MonitorClient(void* zmqContext,
-                EventParser* eventParser,
-                const std::string& monitoringAddress = "127.0.0.1:9876",
-                const std::string& monitoringGroup = "monitoring");
+  MonitorClient(void* zmqContext, EventParser* eventParser, MonitorConfiguration monitorConfig = MonitorConfiguration());
 
   ~MonitorClient();
 
@@ -22,8 +20,7 @@ public:
 
 private:
   capnzero::Subscriber subscriber;
-  std::string monitoringAddress;
-  std::string monitoringGroup;
+  MonitorConfiguration configuration;
   std::vector<const Event*> events;
   EventParser* eventParser;
 };
