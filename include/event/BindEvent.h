@@ -8,7 +8,7 @@ class BindEvent : public Event
 public:
   BindEvent();
 
-  BindEvent(const std::string& address, capnzero::CommType commType);
+  BindEvent(const std::string& address);
 
   const std::string toYaml() const override;
 
@@ -16,5 +16,4 @@ public:
 
 private:
   std::string address;
-  capnzero::CommType commType;
 };

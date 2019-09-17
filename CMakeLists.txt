@@ -36,6 +36,7 @@ set(SOURCES
      src/event/BindEvent.cpp
      src/event/SubscribeEvent.cpp
      src/event/ReceiveEvent.cpp
+     src/event/createevent.cpp
      src/event/yamleventparser.cpp
      src/event/factory/bindeventfactory.cpp
      src/event/factory/connecteventfactory.cpp
@@ -44,6 +45,7 @@ set(SOURCES
      src/event/factory/receiveeventfactory.cpp
      src/event/factory/sendeventfactory.cpp
      src/event/factory/subscribeeventfactory.cpp
+     src/event/factory/createeventfactory.cpp
      src/exception/unknowneventexception.cpp
      )
 
@@ -73,3 +75,4 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
 target_compile_options(${PROJECT_NAME} PRIVATE -fPIC)
 
 add_subdirectory(tests)
+

@@ -6,7 +6,7 @@
 class BindEventFactory : public EventFactory
 {
 public:
-  BindEventFactory();
+  BindEventFactory() = default;
 
   const BindEvent* factorFromString(const std::string& serializedEvent) const override;
 };

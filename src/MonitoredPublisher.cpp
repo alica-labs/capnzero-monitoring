@@ -1,13 +1,15 @@
-#include <capnzero/CapnZero.h>
+#include <capnzero/Publisher.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <MonitoredPublisher.h>
 #include <event/SendEvent.h>
 #include <event/BindEvent.h>
+#include <event/createevent.h>
 
-MonitoredPublisher::MonitoredPublisher(void* zmqContext, EventListener* listener) :
-  publisher(zmqContext), eventListener(listener)
+MonitoredPublisher::MonitoredPublisher(void* zmqContext, capnzero::Protocol protocol, EventListener* listener):
+  publisher(zmqContext, protocol), eventListener(listener)
 {
-
+  CreateEvent event(protocol);
+  eventListener->notify(event);
 }
 
 MonitoredPublisher::~MonitoredPublisher()
@@ -15,11 +17,11 @@ MonitoredPublisher::~MonitoredPublisher()
   delete eventListener;
 }
 
-void MonitoredPublisher::bind(capnzero::CommType commType, const std::string& address)
+void MonitoredPublisher::bind(const std::string& address)
 {
-  publisher.bind(commType, address);
+  publisher.addAddress(address);
 
-  BindEvent event(address, commType);
+  BindEvent event(address);
   eventListener->notify(event);
 }
 

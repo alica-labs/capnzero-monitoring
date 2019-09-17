@@ -3,6 +3,7 @@
 #include <exception/unknowneventexception.h>
 #include <event/factory/bindeventfactory.h>
 #include <event/factory/connecteventfactory.h>
+#include <event/factory/createeventfactory.h>
 #include <event/factory/eventfactory.h>
 #include <event/factory/groupjoineventfactory.h>
 #include <event/factory/receiveeventfactory.h>
@@ -18,7 +19,8 @@ YamlEventParser::YamlEventParser()
     {"join", new GroupJoinEventFactory()},
     {"receive", new ReceiveEventFactory()},
     {"send", new SendEventFactory()},
-    {"subscribe", new SubscribeEventFactory()}
+    {"subscribe", new SubscribeEventFactory()},
+    {"create", new CreateEventFactory()}
   };
 }
 

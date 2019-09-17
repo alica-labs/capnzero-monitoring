@@ -11,11 +11,13 @@
 class MonitoredSubscriber
 {
 public:
-  MonitoredSubscriber(void* zmqContext, const std::string& group, EventListener* listener);
+  MonitoredSubscriber(void* zmqContext, capnzero::Protocol protocol, EventListener* listener);
 
   ~MonitoredSubscriber();
 
-  void connect(capnzero::CommType commType, const std::string& address);
+  void connect(const std::string& address);
+
+  void setTopic(const std::string& topic);
 
   void subscribe(void (* callbackFunction)(capnp::FlatArrayMessageReader&));
 

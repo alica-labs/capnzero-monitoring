@@ -8,7 +8,7 @@
 class SubscribeEventFactory : public EventFactory
 {
 public:
-  SubscribeEventFactory();
+  SubscribeEventFactory() = default;
 
   // EventFactory interface
 public:

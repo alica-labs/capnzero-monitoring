@@ -9,10 +9,10 @@ TEST(PublisherTest, singleMessageSending)
   void* zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(2);
+  EXPECT_CALL(*listener, notify).Times(3);
 
-  MonitoredPublisher publisher(zmqContext, listener);
-  publisher.bind(capnzero::CommType::UDP, "127.0.0.1:7890");
+  MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, listener);
+  publisher.bind("127.0.0.1:7890");
   publisher.send("this is a message", "newgroup");
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -23,10 +23,10 @@ TEST(PublisherTest, multipleMessageSending)
   void* zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(6);
+  EXPECT_CALL(*listener, notify).Times(7);
 
-  MonitoredPublisher publisher(zmqContext, listener);
-  publisher.bind(capnzero::CommType::UDP, "127.0.0.1:7890");
+  MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, listener);
+  publisher.bind("127.0.0.1:7890");
   publisher.send("this is a message1", "newgroup");
   publisher.send("this is a message2", "newgroup");
   publisher.send("this is a message3", "newgroup");
