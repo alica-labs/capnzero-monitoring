@@ -12,15 +12,13 @@ TEST(MonitorClientTest, testReceiveSingleEvent)
 {
   void* zmqCtx = zmq_ctx_new();
 
-  RelayEventProxy *proxy = new RelayEventProxy(zmqCtx);
-  NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
-  MonitoredPublisher pub(zmqCtx, capnzero::Protocol::UDP, listener);
   EventParser* eventParser = new YamlEventParser();
-
   MonitorClient monitor(zmqCtx, eventParser);
   monitor.start();
 
-  pub.bind("127.0.0.1:18923");
+  RelayEventProxy *proxy = new RelayEventProxy(zmqCtx);
+  NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
+  MonitoredPublisher pub(zmqCtx, capnzero::Protocol::UDP, listener);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
@@ -33,14 +31,14 @@ TEST(MonitorClientTest, testReceiveMultipleEvents)
 {
   void* zmqCtx = zmq_ctx_new();
 
-  RelayEventProxy *proxy = new RelayEventProxy(zmqCtx);
-  NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
-  MonitoredPublisher pub(zmqCtx, capnzero::Protocol::UDP, listener);
   EventParser* eventParser = new YamlEventParser();
-
   MonitorClient monitor(zmqCtx, eventParser);
   monitor.start();
 
+  RelayEventProxy *proxy = new RelayEventProxy(zmqCtx);
+  NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
+
+  MonitoredPublisher pub(zmqCtx, capnzero::Protocol::UDP, listener);
   pub.bind("127.0.0.1:18923");
   pub.send("testmessage", "groupname");
 
@@ -48,5 +46,5 @@ TEST(MonitorClientTest, testReceiveMultipleEvents)
 
   std::vector<const Event*> monitorEvents = monitor.retrieveEvents();
 
-  ASSERT_EQ(monitorEvents.size(), 2);
+  ASSERT_EQ(monitorEvents.size(), 3);
 }
