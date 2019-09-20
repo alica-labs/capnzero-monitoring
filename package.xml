@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<package format="2">
+  <name>capnzero-monitoring</name>
+  <version>1.0.0</version>
+  <description>The capnzero monitoring package</description>
+
+  <maintainer email="uk047130@student.uni-kassel.de">Sven Starcke</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>capnzero</depend>
+  <export></export>
+</package>

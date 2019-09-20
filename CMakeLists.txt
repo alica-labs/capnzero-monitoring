@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(capnzero-monitoring VERSION 1.0.0 LANGUAGES CXX)
 
-add_compile_definitions(ZMQ_BUILD_DRAFT_API)
+option(CATKIN_ENABLED "This enables the project to be built with a catkin workspace" OFF)
 
 if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
    message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
@@ -20,7 +20,23 @@ conan_cmake_run(REQUIRES ${CONAN_REQUIREMENTS}
                 BUILD_TYPE Release
                 GENERATORS cmake_find_package)
 
-add_subdirectory(submodules/capnzero/capnzero)
+
+if(CATKIN_ENABLED)
+  find_package(catkin REQUIRED COMPONENTS capnzero)
+
+  catkin_package(
+    INCLUDE_DIRS include ${catkin_INCLUDE_DIRS}
+    LIBRARIES capnzero-monitoring
+    CATKIN_DEPENDS capnzero
+  )
+
+  set(CAPNZERO_INCLUDES "${catkin_INCLUDE_DIRS}")
+  set(CAPNZERO_LIBRARIES "${catkin_LIBRARIES}")
+else()
+  add_subdirectory(submodules/capnzero/capnzero)
+  set(CAPNZERO_INCLUDES submodules/capnzero/capnzero/include)
+  set(CAPNZERO_LIBRARIES capnzero capnzero-base-msgs)
+endif()
 
 set(SOURCES
      src/MonitoredPublisher.cpp
@@ -59,7 +75,7 @@ target_include_directories(${PROJECT_NAME}
                                 $<BUILD_INTERFACE:
                                   ${CMAKE_CURRENT_SOURCE_DIR}/include
                                   ${CMAKE_CURRENT_SOURCE_DIR}/src
-                                  submodules/capnzero/capnzero/include>
+                                  ${CAPNZERO_INCLUDES}
                               PRIVATE
                                 src
                            )
@@ -74,6 +90,7 @@ target_link_libraries(${PROJECT_NAME}
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
 target_compile_options(${PROJECT_NAME} PRIVATE -fPIC)
+target_compile_definitions(${PROJECT_NAME} PRIVATE ZMQ_BUILD_DRAFT_API)
 
 add_subdirectory(tests)
 
