@@ -16,10 +16,9 @@ It is possible to build the library with plain cmake as well as with a catkin wo
 For building it with plain cmake simply invoke:
 
     cmake . && make -j<number_of_cores> 
-For building it with catkin, enable the "CATKIN_ENABLED" cmake-option for the library.
-Then build it with
+For building it with catkin, enable the "CATKIN_ENABLED" cmake-option at build time.
 
-    catkin_make
+    catkin_make --force-cmake --cmake-args -DCATKIN_ENABLED=O
 
 ## Usage
 
