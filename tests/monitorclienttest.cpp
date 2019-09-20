@@ -26,7 +26,7 @@ TEST(MonitorClientTest, testReceiveSingleEvent)
 
   std::vector<const Event*> monitorEvents = monitor.retrieveEvents();
 
-  ASSERT_EQ(monitorEvents.size(), 1);
+  ASSERT_EQ(monitorEvents.size(), 2);
 }
 
 TEST(MonitorClientTest, testReceiveMultipleEvents)
