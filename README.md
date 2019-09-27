@@ -18,7 +18,7 @@ For building it with plain cmake simply invoke:
     cmake . && make -j<number_of_cores> 
 For building it with catkin, enable the "CATKIN_ENABLED" cmake-option at build time.
 
-    catkin_make --force-cmake --cmake-args -DCATKIN_ENABLED=O
+    catkin_make --force-cmake --cmake-args -DCATKIN_ENABLED=ON
 
 ## Usage
 
