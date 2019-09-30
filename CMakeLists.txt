@@ -20,7 +20,6 @@ conan_cmake_run(REQUIRES ${CONAN_REQUIREMENTS}
                 BUILD_TYPE Release
                 GENERATORS cmake_find_package)
 
-
 if(CATKIN_ENABLED)
   find_package(catkin REQUIRED COMPONENTS capnzero)
 
@@ -88,5 +87,6 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
 target_compile_options(${PROJECT_NAME} PRIVATE -fPIC)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ZMQ_BUILD_DRAFT_API)
 
+add_subdirectory(client)
 add_subdirectory(tests)
 
