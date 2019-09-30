@@ -33,7 +33,7 @@ void MonitoredSubscriber::setTopic(const std::string& topic)
   subscriber.setTopic(topic);
 }
 
-void MonitoredSubscriber::connect(const std::string& address)
+void MonitoredSubscriber::addAddress(const std::string& address)
 {
   subscriber.addAddress(address);
 

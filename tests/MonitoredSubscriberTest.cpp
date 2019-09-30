@@ -39,7 +39,7 @@ TEST(MonitoredSubscriberTest, connectAndSubscribeAreNotified)
   EXPECT_CALL(*listener, notify).Times(4);
 
   MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, listener);
-  subscriber.connect("127.0.0.1:7890");
+  subscriber.addAddress("127.0.0.1:7890");
   subscriber.setTopic("newgroup");
   subscriber.subscribe(&subscriberCallback);
 
@@ -58,7 +58,7 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   MockEventListener *pubListener = new MockEventListener();
 
   MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, subListener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&subscriberCallback);
 
@@ -85,7 +85,7 @@ TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
   publisher.bind(address);
 
   MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, subListener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
 
   MyComplexCallback* callbackObject = new MyComplexCallback();

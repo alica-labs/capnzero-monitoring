@@ -15,7 +15,7 @@ public:
 
   ~MonitoredSubscriber();
 
-  void connect(const std::string& address);
+  void addAddress(const std::string& address);
 
   void setTopic(const std::string& topic);
 

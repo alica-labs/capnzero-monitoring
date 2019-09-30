@@ -31,7 +31,7 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   EXPECT_CALL(*pubListener, notify).Times(3);
 
   MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, subListener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
 
@@ -54,7 +54,7 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
 
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, listener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
 
@@ -82,7 +82,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   RelayEventProxy *proxy = new RelayEventProxy(ctx);
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, listener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
 
