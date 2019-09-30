@@ -17,7 +17,7 @@ MonitoredPublisher::~MonitoredPublisher()
   delete eventListener;
 }
 
-void MonitoredPublisher::bind(const std::string& address)
+void MonitoredPublisher::addAddress(const std::string& address)
 {
   publisher.addAddress(address);
 
@@ -25,14 +25,14 @@ void MonitoredPublisher::bind(const std::string& address)
   eventListener->notify(event);
 }
 
-void MonitoredPublisher::send(const std::string& message, const std::string& groupName)
+void MonitoredPublisher::send(const std::string& message, const std::string& topic)
 {
   capnp::MallocMessageBuilder builder;
   capnzero::String::Builder messageBuilder = builder.initRoot<capnzero::String>();
   messageBuilder.setString(message);
 
-  SendEvent event(message, groupName);
+  SendEvent event(message, topic);
   eventListener->notify(event);
 
-  publisher.send(builder, groupName);
+  publisher.send(builder, topic);
 }

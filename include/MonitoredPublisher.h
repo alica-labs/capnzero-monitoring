@@ -10,7 +10,7 @@ public:
 
   ~MonitoredPublisher();
 
-  void bind(const std::string& address);
+  void addAddress(const std::string& address);
 
   void send(const std::string& message, const std::string& groupName);
 

@@ -39,7 +39,7 @@ TEST(MonitorClientTest, testReceiveMultipleEvents)
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
 
   MonitoredPublisher pub(zmqCtx, capnzero::Protocol::UDP, listener);
-  pub.bind("127.0.0.1:18923");
+  pub.addAddress("127.0.0.1:18923");
   pub.send("testmessage", "groupname");
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));

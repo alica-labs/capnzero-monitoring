@@ -36,7 +36,7 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   subscriber.subscribe(&callback);
 
   MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -63,7 +63,7 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
 
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
   MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -89,7 +89,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   RelayEventProxy *pubProxy = new RelayEventProxy(ctx);
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
   MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));

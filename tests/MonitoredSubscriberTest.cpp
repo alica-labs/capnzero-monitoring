@@ -63,7 +63,7 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   subscriber.subscribe(&subscriberCallback);
 
   MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
   publisher.send("Message", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -82,7 +82,7 @@ TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
   MockEventListener *pubListener = new MockEventListener();
 
   MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
 
   MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, subListener);
   subscriber.addAddress(address);
