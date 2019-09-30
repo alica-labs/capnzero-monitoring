@@ -5,9 +5,9 @@
 #include <monitorclient.h>
 #include <monitoredpublisher.h>
 #include <monitoredsubscriber.h>
-#include <mockeventlistener.h>
+#include <tests/mocks/mockeventlistener.h>
 #include <networksocketeventlistener.h>
-#include <relayEventProxy.h>
+#include <relayeventproxy.h>
 #include <event/yamleventparser.h>
 #include <capnzero-base-msgs/string.capnp.h>
 

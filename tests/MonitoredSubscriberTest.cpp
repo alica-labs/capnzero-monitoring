@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include <MonitoredPublisher.h>
+#include <monitoredpublisher.h>
 #include <zmq.h>
-#include <MonitorClient.h>
-#include <MonitoredSubscriber.h>
+#include <monitorclient.h>
+#include <monitoredsubscriber.h>
 #include <capnzero-base-msgs/string.capnp.h>
-#include <MockEventListener.h>
+#include <tests/mocks/mockeventlistener.h>
 
 class MyComplexCallback
 {

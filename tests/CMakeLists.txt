@@ -8,8 +8,6 @@ set(SOURCES
      monitoredpublishertest.cpp
      monitorclienttest.cpp
      eventparsertest.cpp
-     mocks/MockEventProxy.h
-     mocks/MockEventListener.h
      )
 
 add_executable( ${PROJECT_NAME} ${SOURCES} )

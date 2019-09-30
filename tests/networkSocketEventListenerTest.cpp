@@ -1,5 +1,5 @@
 #include <networksocketeventlistener.h>
-#include "mocks/MockEventProxy.h"
+#include <tests/mocks/mockeventproxy.h>
 #include <event/sendevent.h>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>

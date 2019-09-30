@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <MockEventListener.h>
-#include <MonitoredPublisher.h>
+#include <mockeventlistener.h>
+#include <monitoredpublisher.h>
 #include <zmq.h>
 #include <thread>
 

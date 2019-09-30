@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
-#include <MockEventListener.h>
-#include <MonitorClient.h>
-#include <MonitoredPublisher.h>
-#include <NetworkSocketEventListener.h>
-#include <RelayEventProxy.h>
+#include <mockeventlistener.h>
+#include <monitorclient.h>
+#include <monitoredpublisher.h>
+#include <networksocketeventlistener.h>
+#include <relayeventproxy.h>
 
 #include <event/yamleventparser.h>
 
