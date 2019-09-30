@@ -7,7 +7,7 @@ class SendEvent : public Event
 public:
   SendEvent();
 
-  SendEvent(const std::string& message, const std::string& groupName);
+  SendEvent(const std::string& message, const std::string& topic);
 
   const std::string toYaml() const override;
 
@@ -15,5 +15,5 @@ public:
 
 private:
   std::string message;
-  std::string groupName;
+  std::string topic;
 };

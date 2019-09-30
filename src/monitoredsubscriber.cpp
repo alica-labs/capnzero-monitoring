@@ -5,7 +5,7 @@
 #include "monitoredsubscriber.h"
 #include "relayeventproxy.h"
 #include "event/topicevent.h"
-#include "event/connectevent.h"
+#include "event/addressevent.h"
 #include "event/subscribeevent.h"
 
 MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, capnzero::Protocol protocol, EventListener* listener) :
@@ -37,7 +37,7 @@ void MonitoredSubscriber::addAddress(const std::string& address)
 {
   subscriber.addAddress(address);
 
-  ConnectEvent event(address);
+  AddressEvent event(address);
   eventListener->notify(event);
 }
 

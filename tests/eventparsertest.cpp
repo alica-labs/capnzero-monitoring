@@ -1,42 +1,44 @@
 #include <gtest/gtest.h>
-#include <event/bindevent.h>
-#include <event/connectevent.h>
+#include <event/addressevent.h>
 #include <event/topicevent.h>
 #include <event/receiveevent.h>
 #include <event/sendevent.h>
 #include <event/subscribeevent.h>
 #include <event/yamleventparser.h>
+#include <event/createevent.h>
 #include <exception/unknowneventexception.h>
 
-TEST(EventParserTest, parsingBindEvent)
+TEST(EventParserTest, parsingCreateEvent)
 {
   const std::string serializedEvent {
-    "type: bind\n"
-    "address: adr\n"
-    "communication_type: 0"
+    "type: create\n"
+    "protocol: 0"
   };
 
   YamlEventParser parser;
   const Event* event = parser.parse(serializedEvent);
 
-  dynamic_cast<const BindEvent*>(event);
+  dynamic_cast<const CreateEvent*>(event);
+
+  delete event;
 }
 
-TEST(EventParserTest, parsingConnectEvent)
+TEST(EventParserTest, parsingAddressEvent)
 {
   const std::string serializedEvent {
-    "type: connect\n"
+    "type: address\n"
     "address: adr\n"
-    "communication_type: 0"
   };
 
   YamlEventParser parser;
   const Event* event = parser.parse(serializedEvent);
 
-  dynamic_cast<const ConnectEvent*>(event);
+  dynamic_cast<const AddressEvent*>(event);
+
+  delete event;
 }
 
-TEST(EventParserTest, parsingGroupJoinEvent)
+TEST(EventParserTest, parsingTopicEvent)
 {
   const std::string serializedEvent {
     "type: topic\n"
@@ -47,6 +49,8 @@ TEST(EventParserTest, parsingGroupJoinEvent)
   const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const TopicEvent*>(event);
+
+  delete event;
 }
 
 TEST(EventParserTest, parsingReceiveEvent)
@@ -60,6 +64,8 @@ TEST(EventParserTest, parsingReceiveEvent)
   const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const ReceiveEvent*>(event);
+
+  delete event;
 }
 
 TEST(EventParserTest, parsingSendEvent)
@@ -67,13 +73,15 @@ TEST(EventParserTest, parsingSendEvent)
   const std::string serializedEvent {
     "type: send\n"
     "message: msg\n"
-    "group: group"
+    "topic: group"
   };
 
   YamlEventParser parser;
   const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const SendEvent*>(event);
+
+  delete event;
 }
 
 TEST(EventParserTest, parsingSubscribeEvent)
@@ -86,6 +94,8 @@ TEST(EventParserTest, parsingSubscribeEvent)
   const Event* event = parser.parse(serializedEvent);
 
   dynamic_cast<const SubscribeEvent*>(event);
+
+  delete event;
 }
 
 TEST(EventParserTest, notParsingInvalidEvent)

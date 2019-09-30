@@ -46,16 +46,13 @@ set(SOURCES
      src/simplemonitoredcallback.cpp
      src/relayeventproxy.cpp
      src/event/topicevent.cpp
-     src/event/connectevent.cpp
      src/event/sendevent.cpp
-     src/event/bindevent.cpp
      src/event/subscribeevent.cpp
      src/event/receiveevent.cpp
      src/event/createevent.cpp
+     src/event/addressevent.cpp
      src/event/yamleventparser.cpp
-     src/event/factory/bindeventfactory.cpp
-     src/event/factory/connecteventfactory.cpp
-     src/event/factory/connecteventfactory.cpp
+     src/event/factory/addresseventfactory.cpp
      src/event/factory/topiceventfactory.cpp
      src/event/factory/receiveeventfactory.cpp
      src/event/factory/sendeventfactory.cpp

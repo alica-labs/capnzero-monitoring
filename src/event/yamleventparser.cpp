@@ -1,8 +1,7 @@
 #include <event/yamleventparser.h>
 #include <yaml-cpp/yaml.h>
 #include <exception/unknowneventexception.h>
-#include <event/factory/bindeventfactory.h>
-#include <event/factory/connecteventfactory.h>
+#include <event/factory/addresseventfactory.h>
 #include <event/factory/createeventfactory.h>
 #include <event/factory/eventfactory.h>
 #include <event/factory/topiceventfactory.h>
@@ -14,8 +13,7 @@
 YamlEventParser::YamlEventParser()
 {
   eventMapping = {
-    {"bind", new BindEventFactory()},
-    {"connect", new ConnectEventFactory()},
+    {"address", new AddressEventFactory()},
     {"topic", new TopicEventFactory()},
     {"receive", new ReceiveEventFactory()},
     {"send", new SendEventFactory()},

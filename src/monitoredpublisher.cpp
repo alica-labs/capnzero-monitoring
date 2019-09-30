@@ -2,7 +2,7 @@
 #include <capnzero-base-msgs/string.capnp.h>
 #include <monitoredpublisher.h>
 #include <event/sendevent.h>
-#include <event/bindevent.h>
+#include <event/addressevent.h>
 #include <event/createevent.h>
 
 MonitoredPublisher::MonitoredPublisher(void* zmqContext, capnzero::Protocol protocol, EventListener* listener):
@@ -21,7 +21,7 @@ void MonitoredPublisher::addAddress(const std::string& address)
 {
   publisher.addAddress(address);
 
-  BindEvent event(address);
+  AddressEvent event(address);
   eventListener->notify(event);
 }
 
