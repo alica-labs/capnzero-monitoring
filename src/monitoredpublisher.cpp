@@ -1,8 +1,8 @@
 #include <capnzero/Publisher.h>
 #include <capnzero-base-msgs/string.capnp.h>
-#include <MonitoredPublisher.h>
-#include <event/SendEvent.h>
-#include <event/BindEvent.h>
+#include <monitoredpublisher.h>
+#include <event/sendevent.h>
+#include <event/bindevent.h>
 #include <event/createevent.h>
 
 MonitoredPublisher::MonitoredPublisher(void* zmqContext, capnzero::Protocol protocol, EventListener* listener):

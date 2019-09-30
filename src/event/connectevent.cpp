@@ -1,5 +1,5 @@
 #include <yaml-cpp/yaml.h>
-#include <event/ConnectEvent.h>
+#include <event/connectevent.h>
 
 ConnectEvent::ConnectEvent()
 {

@@ -1,5 +1,5 @@
 #include <capnzero-base-msgs/string.capnp.h>
-#include <RelayEventProxy.h>
+#include <relayeventproxy.h>
 
 RelayEventProxy::RelayEventProxy(void* zmqContext, MonitorConfiguration monitorConfig):
   publisher(zmqContext, capnzero::Protocol::UDP), configuration(monitorConfig)

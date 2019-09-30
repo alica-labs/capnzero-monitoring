@@ -1,7 +1,7 @@
 #pragma once
 
 #include <event/factory/eventfactory.h>
-#include <event/GroupJoinEvent.h>
+#include <event/topicevent.h>
 
 class TopicEventFactory : public EventFactory
 {

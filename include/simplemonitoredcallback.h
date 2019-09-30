@@ -1,7 +1,7 @@
 #pragma once
 
-#include <EventListener.h>
-#include <MonitoredCallback.h>
+#include <eventlistener.h>
+#include <monitoredcallback.h>
 #include <functional>
 
 class SimpleMonitoredCallback : public MonitoredCallback

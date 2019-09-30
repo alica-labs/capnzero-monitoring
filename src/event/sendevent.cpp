@@ -1,5 +1,5 @@
 #include <yaml-cpp/yaml.h>
-#include <event/SendEvent.h>
+#include <event/sendevent.h>
 
 SendEvent::SendEvent()
 {

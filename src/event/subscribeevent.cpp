@@ -1,5 +1,5 @@
 #include <yaml-cpp/yaml.h>
-#include <event/SubscribeEvent.h>
+#include <event/subscribeevent.h>
 
 SubscribeEvent::SubscribeEvent()
 {

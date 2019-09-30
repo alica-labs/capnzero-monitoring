@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <event/Event.h>
+#include <event/event.h>
 
 class EventFactory
 {

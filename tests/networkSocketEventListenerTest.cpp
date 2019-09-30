@@ -1,9 +1,9 @@
-#include <NetworkSocketEventListener.h>
+#include <networksocketeventlistener.h>
 #include "mocks/MockEventProxy.h"
-#include <event/SendEvent.h>
+#include <event/sendevent.h>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include <event/Event.h>
+#include <event/event.h>
 
 MATCHER_P(eventEquals, event, "")
 {

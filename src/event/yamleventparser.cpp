@@ -5,7 +5,7 @@
 #include <event/factory/connecteventfactory.h>
 #include <event/factory/createeventfactory.h>
 #include <event/factory/eventfactory.h>
-#include <event/factory/groupjoineventfactory.h>
+#include <event/factory/topiceventfactory.h>
 #include <event/factory/receiveeventfactory.h>
 #include <event/factory/sendeventfactory.h>
 #include <event/factory/subscribeeventfactory.h>

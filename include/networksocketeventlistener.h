@@ -1,9 +1,9 @@
 #pragma once
 
 #include <string>
-#include <event/Event.h>
-#include <EventListener.h>
-#include <EventProxy.h>
+#include <event/event.h>
+#include <eventlistener.h>
+#include <eventproxy.h>
 
 class NetworkSocketEventListener : public EventListener
 {

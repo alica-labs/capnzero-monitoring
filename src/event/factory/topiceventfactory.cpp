@@ -1,4 +1,4 @@
-#include <event/factory/groupjoineventfactory.h>
+#include <event/factory/topiceventfactory.h>
 
 const TopicEvent* TopicEventFactory::factorFromString(const std::string& serializedEvent) const
 {

@@ -1,12 +1,12 @@
 #include <capnzero-base-msgs/string.capnp.h>
-#include <ComplexMonitoredCallback.h>
+#include <complexmonitoredcallback.h>
 #include <event/createevent.h>
-#include "SimpleMonitoredCallback.h"
-#include "MonitoredSubscriber.h"
-#include "RelayEventProxy.h"
-#include "event/GroupJoinEvent.h"
-#include "event/ConnectEvent.h"
-#include "event/SubscribeEvent.h"
+#include "simplemonitoredcallback.h"
+#include "monitoredsubscriber.h"
+#include "relayeventproxy.h"
+#include "event/topicevent.h"
+#include "event/connectevent.h"
+#include "event/subscribeevent.h"
 
 MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, capnzero::Protocol protocol, EventListener* listener) :
   subscriber(zmqContext, protocol), eventListener(listener)

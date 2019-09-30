@@ -1,7 +1,7 @@
 #include <capnzero-base-msgs/string.capnp.h>
 #include <capnzero/Common.h>
 #include <capnp/message.h>
-#include <NetworkSocketEventListener.h>
+#include <networksocketeventlistener.h>
 
 NetworkSocketEventListener::NetworkSocketEventListener(EventProxy* proxy) : proxy(proxy)
 {}

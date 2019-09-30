@@ -1,8 +1,8 @@
 #pragma once
 
 #include <capnzero/Publisher.h>
-#include <event/Event.h>
-#include <EventProxy.h>
+#include <event/event.h>
+#include <eventproxy.h>
 #include <config/monitorconfiguration.h>
 
 class RelayEventProxy : public EventProxy

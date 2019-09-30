@@ -1,5 +1,5 @@
 #include <yaml-cpp/yaml.h>
-#include <event/GroupJoinEvent.h>
+#include <event/topicevent.h>
 
 TopicEvent::TopicEvent()
 {

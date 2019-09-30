@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
-#include <event/BindEvent.h>
-#include <event/ConnectEvent.h>
-#include <event/GroupJoinEvent.h>
-#include <event/ReceiveEvent.h>
-#include <event/SendEvent.h>
-#include <event/SubscribeEvent.h>
+#include <event/bindevent.h>
+#include <event/connectevent.h>
+#include <event/topicevent.h>
+#include <event/receiveevent.h>
+#include <event/sendevent.h>
+#include <event/subscribeevent.h>
 #include <event/yamleventparser.h>
 #include <exception/unknowneventexception.h>
 

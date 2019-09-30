@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 #include <zmq.h>
-#include <MockEventProxy.h>
+#include <mockeventproxy.h>
 #include <thread>
-#include <MonitorClient.h>
-#include <MonitoredPublisher.h>
-#include <MonitoredSubscriber.h>
-#include <MockEventListener.h>
-#include <NetworkSocketEventListener.h>
-#include <RelayEventProxy.h>
+#include <monitorclient.h>
+#include <monitoredpublisher.h>
+#include <monitoredsubscriber.h>
+#include <mockeventlistener.h>
+#include <networksocketeventlistener.h>
+#include <relayEventProxy.h>
 #include <event/yamleventparser.h>
 #include <capnzero-base-msgs/string.capnp.h>
 

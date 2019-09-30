@@ -1,11 +1,11 @@
 #pragma once
 
-#include <ComplexMonitoredCallback.h>
-#include <EventListener.h>
-#include <MonitoredCallback.h>
+#include <complexmonitoredcallback.h>
+#include <eventlistener.h>
+#include <monitoredcallback.h>
 #include <capnp/serialize.h>
 #include <capnzero/Subscriber.h>
-#include <event/SubscribeEvent.h>
+#include <event/subscribeevent.h>
 #include <vector>
 
 class MonitoredSubscriber

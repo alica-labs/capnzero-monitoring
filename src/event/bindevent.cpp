@@ -1,5 +1,5 @@
 #include <yaml-cpp/yaml.h>
-#include <event/BindEvent.h>
+#include <event/bindevent.h>
 
 BindEvent::BindEvent()
 {

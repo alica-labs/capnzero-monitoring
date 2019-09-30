@@ -1,6 +1,6 @@
 #pragma once
 
-#include <event/Event.h>
+#include <event/event.h>
 
 class SendEvent : public Event
 {

@@ -3,7 +3,7 @@
 #include <capnp/serialize.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <capnzero/Common.h>
-#include <MonitorClient.h>
+#include <monitorclient.h>
 #include <event/yamleventparser.h>
 
 MonitorClient::MonitorClient(void* zmqContext, EventParser* eventParser, MonitorConfiguration monitorConfig):
