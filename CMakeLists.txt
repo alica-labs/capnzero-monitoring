@@ -39,25 +39,21 @@ else()
 endif()
 
 set(SOURCES
-     src/MonitoredPublisher.cpp
-     src/NetworkSocketEventListener.cpp
-     src/MonitorClient.cpp
-     src/MonitoredSubscriber.cpp
-     src/SimpleMonitoredCallback.cpp
-     src/ComplexMonitoredCallback.cpp
-     src/RelayEventProxy.cpp
-     src/event/GroupJoinEvent.cpp
-     src/event/ConnectEvent.cpp
-     src/event/SendEvent.cpp
-     src/event/BindEvent.cpp
-     src/event/SubscribeEvent.cpp
-     src/event/ReceiveEvent.cpp
+     src/monitoredpublisher.cpp
+     src/networksocketeventlistener.cpp
+     src/monitorclient.cpp
+     src/monitoredsubscriber.cpp
+     src/simplemonitoredcallback.cpp
+     src/relayeventproxy.cpp
+     src/event/topicevent.cpp
+     src/event/sendevent.cpp
+     src/event/subscribeevent.cpp
+     src/event/receiveevent.cpp
      src/event/createevent.cpp
+     src/event/addressevent.cpp
      src/event/yamleventparser.cpp
-     src/event/factory/bindeventfactory.cpp
-     src/event/factory/connecteventfactory.cpp
-     src/event/factory/connecteventfactory.cpp
-     src/event/factory/groupjoineventfactory.cpp
+     src/event/factory/addresseventfactory.cpp
+     src/event/factory/topiceventfactory.cpp
      src/event/factory/receiveeventfactory.cpp
      src/event/factory/sendeventfactory.cpp
      src/event/factory/subscribeeventfactory.cpp

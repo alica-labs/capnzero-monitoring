@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include <MonitoredPublisher.h>
+#include <monitoredpublisher.h>
 #include <zmq.h>
-#include <MonitorClient.h>
-#include <MonitoredSubscriber.h>
+#include <monitorclient.h>
+#include <monitoredsubscriber.h>
 #include <capnzero-base-msgs/string.capnp.h>
-#include <MockEventListener.h>
+#include <tests/mocks/mockeventlistener.h>
 
 class MyComplexCallback
 {
@@ -39,7 +39,7 @@ TEST(MonitoredSubscriberTest, connectAndSubscribeAreNotified)
   EXPECT_CALL(*listener, notify).Times(4);
 
   MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, listener);
-  subscriber.connect("127.0.0.1:7890");
+  subscriber.addAddress("127.0.0.1:7890");
   subscriber.setTopic("newgroup");
   subscriber.subscribe(&subscriberCallback);
 
@@ -58,12 +58,12 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   MockEventListener *pubListener = new MockEventListener();
 
   MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, subListener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&subscriberCallback);
 
   MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
   publisher.send("Message", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -82,10 +82,10 @@ TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
   MockEventListener *pubListener = new MockEventListener();
 
   MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
 
   MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, subListener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
 
   MyComplexCallback* callbackObject = new MyComplexCallback();

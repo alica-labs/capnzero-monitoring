@@ -1,7 +1,7 @@
 #pragma once
 
 #include <capnzero/Common.h>
-#include <event/Event.h>
+#include <event/event.h>
 
 class CreateEvent : public Event
 {

@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 #include <zmq.h>
-#include <MockEventProxy.h>
+#include <mockeventproxy.h>
 #include <thread>
-#include <MonitorClient.h>
-#include <MonitoredPublisher.h>
-#include <MonitoredSubscriber.h>
-#include <MockEventListener.h>
-#include <NetworkSocketEventListener.h>
-#include <RelayEventProxy.h>
+#include <monitorclient.h>
+#include <monitoredpublisher.h>
+#include <monitoredsubscriber.h>
+#include <tests/mocks/mockeventlistener.h>
+#include <networksocketeventlistener.h>
+#include <relayeventproxy.h>
 #include <event/yamleventparser.h>
 #include <capnzero-base-msgs/string.capnp.h>
 
@@ -31,12 +31,12 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   EXPECT_CALL(*pubListener, notify).Times(3);
 
   MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, subListener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
 
   MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -54,7 +54,7 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
 
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, listener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
 
@@ -63,7 +63,7 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
 
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
   MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -82,14 +82,14 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   RelayEventProxy *proxy = new RelayEventProxy(ctx);
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, listener);
-  subscriber.connect(address);
+  subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
 
   RelayEventProxy *pubProxy = new RelayEventProxy(ctx);
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
   MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
-  publisher.bind(address);
+  publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
