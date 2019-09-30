@@ -1,29 +1,29 @@
 #include <yaml-cpp/yaml.h>
 #include <event/GroupJoinEvent.h>
 
-GroupJoinEvent::GroupJoinEvent()
+TopicEvent::TopicEvent()
 {
-  type = "join";
+  type = "topic";
 }
 
-GroupJoinEvent::GroupJoinEvent(const std::string& groupName) : groupName{groupName}
+TopicEvent::TopicEvent(const std::string& groupName) : topic{groupName}
 {
-  type = "join";
+  type = "topic";
 }
 
-const std::string GroupJoinEvent::toYaml() const
+const std::string TopicEvent::toYaml() const
 {
   YAML::Emitter yaml;
   yaml << YAML::BeginMap
        << YAML::Key << "type" << YAML::Value << type
-       << YAML::Key << "group" << YAML::Value << groupName
+       << YAML::Key << "topic" << YAML::Value << topic
        << YAML::EndMap;
 
   return yaml.c_str();
 }
 
-void GroupJoinEvent::parse(const std::string& yamlSerializedEvent)
+void TopicEvent::parse(const std::string& yamlSerializedEvent)
 {
   YAML::Node yamlEvent = YAML::Load(yamlSerializedEvent);
-  groupName = yamlEvent["group"].as<std::string>();
+  topic = yamlEvent["topic"].as<std::string>();
 }

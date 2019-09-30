@@ -16,7 +16,7 @@ YamlEventParser::YamlEventParser()
   eventMapping = {
     {"bind", new BindEventFactory()},
     {"connect", new ConnectEventFactory()},
-    {"join", new GroupJoinEventFactory()},
+    {"topic", new TopicEventFactory()},
     {"receive", new ReceiveEventFactory()},
     {"send", new SendEventFactory()},
     {"subscribe", new SubscribeEventFactory()},

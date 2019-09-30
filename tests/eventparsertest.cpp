@@ -39,14 +39,14 @@ TEST(EventParserTest, parsingConnectEvent)
 TEST(EventParserTest, parsingGroupJoinEvent)
 {
   const std::string serializedEvent {
-    "type: join\n"
-    "group: group"
+    "type: topic\n"
+    "topic: t"
   };
 
   YamlEventParser parser;
   const Event* event = parser.parse(serializedEvent);
 
-  dynamic_cast<const GroupJoinEvent*>(event);
+  dynamic_cast<const TopicEvent*>(event);
 }
 
 TEST(EventParserTest, parsingReceiveEvent)

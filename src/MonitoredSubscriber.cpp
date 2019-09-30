@@ -27,7 +27,7 @@ MonitoredSubscriber::~MonitoredSubscriber()
 
 void MonitoredSubscriber::setTopic(const std::string& topic)
 {
-  GroupJoinEvent event(topic);
+  TopicEvent event(topic);
   eventListener->notify(event);
 
   subscriber.setTopic(topic);

@@ -3,13 +3,13 @@
 #include <event/factory/eventfactory.h>
 #include <event/GroupJoinEvent.h>
 
-class GroupJoinEventFactory : public EventFactory
+class TopicEventFactory : public EventFactory
 {
 public:
-  GroupJoinEventFactory() = default;
+  TopicEventFactory() = default;
 
   // EventFactory interface
 public:
-  const GroupJoinEvent* factorFromString(const std::string& serializedEvent) const;
+  const TopicEvent* factorFromString(const std::string& serializedEvent) const;
 };
 

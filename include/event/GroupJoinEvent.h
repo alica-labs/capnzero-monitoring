@@ -2,17 +2,17 @@
 
 #include <event/Event.h>
 
-class GroupJoinEvent : public Event
+class TopicEvent : public Event
 {
 public:
-  GroupJoinEvent();
+  TopicEvent();
 
-  GroupJoinEvent(const std::string& groupName);
+  TopicEvent(const std::string& topic);
 
   const std::string toYaml() const override;
 
   void parse(const std::string& yamlSerializedEvent) override;
 
 private:
-  std::string groupName;
+  std::string topic;
 };
