@@ -23,6 +23,7 @@ target_link_libraries( ${PROJECT_NAME}
                           CONAN_PKG::gtest
                           capnp
                           capnzero
-                          capnzero-monitoring)
+                          capnzero-monitoring
+                          capnzero-monitoring-client)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
