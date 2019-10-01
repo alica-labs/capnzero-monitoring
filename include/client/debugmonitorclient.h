@@ -1,13 +1,11 @@
 #pragma once
 
-#include <debugeventproxy.h>
+#include <client/capnzerodebugeventproxy.h>
 
 class DebugMonitorClient
 {
 public:
-  DebugMonitorClient(DebugEventProxy* proxy);
-
-  ~DebugMonitorClient();
+  DebugMonitorClient(CapnzeroDebugEventProxy& proxy);
 
   void start();
 
@@ -17,6 +15,6 @@ public:
 
 private:
   bool running;
-  DebugEventProxy* proxy;
+  CapnzeroDebugEventProxy proxy;
 };
 

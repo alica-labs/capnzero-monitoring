@@ -1,6 +1,6 @@
 #pragma once
 
-#include <debugeventhandler.h>
+#include <client/debugeventhandler.h>
 
 class PrintDebugEventHandler : public DebugEventHandler
 {
@@ -9,6 +9,6 @@ public:
 
   // DebugEventHandler interface
 public:
-  void handleDebugEvent(const Event* event);
+  void handleDebugEvent(capnp::FlatArrayMessageReader& reader);
 };
 
