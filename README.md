@@ -1,9 +1,9 @@
 # capnzero-monitoring
 
-This is an extension library that builds on the capnzero framework.
-It enables event based monitoring on the capnzero enabled network.
+Capnzero-Monitoring is an extension library that builds on top of the capnzero framework.
+It enables event based monitoring on a capnzero enabled network.
 
-## Dependencies
+## Needed Tools
 
 - conan
 - cmake
@@ -17,7 +17,7 @@ For building it with plain cmake simply invoke:
 
     cmake . && make -j<number_of_cores> 
 For building it with catkin, enable the "CATKIN_ENABLED" cmake-option at build time.
-
+    
     catkin_make --force-cmake --cmake-args -DCATKIN_ENABLED=ON
 
 ## Usage
