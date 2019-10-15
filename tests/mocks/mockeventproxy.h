@@ -11,6 +11,8 @@
 class MockEventProxy : public EventProxy
 {
 public:
+  ~MockEventProxy() = default;
+
   MOCK_METHOD1(notifyClient, void(const Event&));
 };
 

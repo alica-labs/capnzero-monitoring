@@ -2,7 +2,6 @@
 #include <gmock/gmock.h>
 #include <monitoredpublisher.h>
 #include <zmq.h>
-#include <monitorclient.h>
 #include <monitoredsubscriber.h>
 #include <capnzero-base-msgs/string.capnp.h>
 #include <tests/mocks/mockeventlistener.h>

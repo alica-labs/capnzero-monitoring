@@ -40,7 +40,6 @@ endif()
 set(SOURCES
      src/monitoredpublisher.cpp
      src/networksocketeventlistener.cpp
-     src/monitorclient.cpp
      src/monitoredsubscriber.cpp
      src/simplemonitoredcallback.cpp
      src/relayeventproxy.cpp
@@ -84,35 +83,5 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
 target_compile_options(${PROJECT_NAME} PRIVATE -fPIC)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ZMQ_BUILD_DRAFT_API)
 
-# build client library
-set(CLIENT_PROJECT_NAME "${PROJECT_NAME}-client")
-
-set(CLIENT_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/client/debugmonitorclient.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/client/debugeventhandler.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/client/capnzerodebugeventproxy.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/client/printdebugeventhandler.cpp
-    )
-
-add_library(${CLIENT_PROJECT_NAME} SHARED ${CLIENT_SOURCES})
-
-target_include_directories(${CLIENT_PROJECT_NAME}
-                              PUBLIC
-                                $<INSTALL_INTERFACE:
-                                  ${CMAKE_CURRENT_SOURCE_DIR}/include/client>
-                                $<BUILD_INTERFACE:
-                                  ${CMAKE_CURRENT_SOURCE_DIR}/include
-                                  ${CMAKE_CURRENT_SOURCE_DIR}/src
-                              PRIVATE
-                                ${CMAKE_CURRENT_SOURCE_DIR}/src
-                           )
-
-target_link_libraries(${CLIENT_PROJECT_NAME} PRIVATE capnzero-monitoring)
-
-target_compile_features(${CLIENT_PROJECT_NAME} PRIVATE cxx_std_14)
-target_compile_options(${CLIENT_PROJECT_NAME} PRIVATE -fPIC)
-target_compile_definitions(${CLIENT_PROJECT_NAME} PRIVATE ZMQ_BUILD_DRAFT_API)
-
-# additional builds
 add_subdirectory(tests)
 add_subdirectory(example)
