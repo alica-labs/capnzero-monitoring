@@ -6,7 +6,6 @@ set(SOURCES
      networkSocketEventListenerTest.cpp
      MonitoredSubscriberTest.cpp
      monitoredpublishertest.cpp
-     monitorclienttest.cpp
      eventparsertest.cpp
      )
 
@@ -24,6 +23,6 @@ target_link_libraries( ${PROJECT_NAME}
                           capnp
                           capnzero
                           capnzero-monitoring
-                          capnzero-monitoring-client)
+                          )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)

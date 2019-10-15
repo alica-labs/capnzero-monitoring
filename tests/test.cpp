@@ -2,7 +2,6 @@
 #include <zmq.h>
 #include <mockeventproxy.h>
 #include <thread>
-#include <monitorclient.h>
 #include <monitoredpublisher.h>
 #include <monitoredsubscriber.h>
 #include <tests/mocks/mockeventlistener.h>
@@ -43,7 +42,7 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
 }
 
 
-TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
+TEST(CombinationTest, testSinglePublishSubscribe)
 {
   void* ctx = zmq_ctx_new();
   const std::string topic {"group"};
@@ -68,34 +67,3 @@ TEST(CombinationTest, testSinglePublishSubscribeWithoutMonitorClient)
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
 }
-
-TEST(CombinationTest, testSinglePublishSubscribe)
-{
-  void* ctx = zmq_ctx_new();
-  const std::string topic {"group"};
-  const std::string address {"127.0.0.1:7890"};
-  EventParser* eventParser = new YamlEventParser();
-
-  MonitorClient monitorClient(ctx, eventParser);
-  monitorClient.start();
-
-  RelayEventProxy *proxy = new RelayEventProxy(ctx);
-  NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
-  MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, listener);
-  subscriber.addAddress(address);
-  subscriber.setTopic(topic);
-  subscriber.subscribe(&callback);
-
-  RelayEventProxy *pubProxy = new RelayEventProxy(ctx);
-  NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
-  MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
-  publisher.addAddress(address);
-  publisher.send("This message should reach subscriber", topic);
-
-  std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-  std::vector<const Event*> monitorEvents = monitorClient.retrieveEvents();
-
-  ASSERT_EQ(monitorEvents.size(), 8);
-}
-
