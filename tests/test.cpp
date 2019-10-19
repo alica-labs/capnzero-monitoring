@@ -6,8 +6,6 @@
 #include <monitoredsubscriber.h>
 #include <tests/mocks/mockeventlistener.h>
 #include <networksocketeventlistener.h>
-#include <relayeventproxy.h>
-#include <event/yamleventparser.h>
 #include <capnzero-base-msgs/string.capnp.h>
 
 void callback(capnp::FlatArrayMessageReader& reader)

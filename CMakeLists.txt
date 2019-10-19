@@ -49,13 +49,6 @@ set(SOURCES
      src/event/receiveevent.cpp
      src/event/createevent.cpp
      src/event/addressevent.cpp
-     src/event/yamleventparser.cpp
-     src/event/factory/addresseventfactory.cpp
-     src/event/factory/topiceventfactory.cpp
-     src/event/factory/receiveeventfactory.cpp
-     src/event/factory/sendeventfactory.cpp
-     src/event/factory/subscribeeventfactory.cpp
-     src/event/factory/createeventfactory.cpp
      src/exception/unknowneventexception.cpp
      src/config/monitorconfiguration.cpp
      )

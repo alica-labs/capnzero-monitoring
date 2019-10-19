@@ -5,9 +5,7 @@
 class SubscribeEvent : public Event
 {
 public:
-  SubscribeEvent();
+  SubscribeEvent(const std::string& id);
 
   const std::string toYaml() const override;
-
-  void parse(const std::string& yamlSerializedEvent) override;
 };

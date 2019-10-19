@@ -10,10 +10,10 @@ template<typename CallbackObjectType>
 class ComplexMonitoredCallback : public MonitoredCallback
 {
 public:
-  ComplexMonitoredCallback(EventListener* eventListener,
+  ComplexMonitoredCallback(const std::string& id, EventListener* eventListener,
                            void (CallbackObjectType::*callbackFunction)(::capnp::FlatArrayMessageReader&),
                            CallbackObjectType* callbackObject) :
-    eventListener(eventListener), callbackFunction(callbackFunction), callbackObject(callbackObject)
+    eventListener(eventListener), callbackFunction(callbackFunction), callbackObject(callbackObject), id(id)
   {
   }
 
@@ -25,7 +25,7 @@ public:
 
     callbackFunction(callbackObject, reader);
 
-    ReceiveEvent event(message);
+    ReceiveEvent event(id, message);
     eventListener->notify(event);
   }
 
@@ -33,6 +33,7 @@ private:
   EventListener* eventListener;
   std::function<void (CallbackObjectType*, capnp::FlatArrayMessageReader&)> callbackFunction;
   CallbackObjectType* callbackObject;
+  std::string id;
 };
 
 

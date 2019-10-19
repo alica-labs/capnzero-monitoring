@@ -24,10 +24,10 @@ public:
   template <typename CallbackObjectType>
   void subscribe(void (CallbackObjectType::*callbackFunction)(capnp::FlatArrayMessageReader&), CallbackObjectType* callbackObject)
   {
-    MonitoredCallback* currentCallback = new ComplexMonitoredCallback<CallbackObjectType>(eventListener, callbackFunction, callbackObject);
+    MonitoredCallback* currentCallback = new ComplexMonitoredCallback<CallbackObjectType>(id, eventListener, callbackFunction, callbackObject);
     messageCallback.push_back(currentCallback);
 
-    SubscribeEvent event;
+    SubscribeEvent event(id);
     eventListener->notify(event);
 
     subscriber.subscribe(&MonitoredCallback::monitoredFunction, currentCallback);

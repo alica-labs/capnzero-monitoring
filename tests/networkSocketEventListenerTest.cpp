@@ -14,7 +14,7 @@ TEST(ListenerTest, testSimpleEvent)
 {
   const std::string type{"event"};
   const std::string data{"this is an event!"};
-  SendEvent event("message", "group");
+  SendEvent event("0", "message", "group");
 
   MockEventProxy* proxy = new MockEventProxy();
   EXPECT_CALL(*proxy, notifyClient(eventEquals(event)));

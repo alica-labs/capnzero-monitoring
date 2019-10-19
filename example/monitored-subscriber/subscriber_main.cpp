@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 
   EventProxy* proxy = new RelayEventProxy(ctx);
   EventListener* eventListener = new NetworkSocketEventListener(proxy);
-  MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, eventListener);
+  MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP, eventListener);
 
   subscriber.setTopic("a_topic");
   subscriber.addAddress("127.0.0.1:7890");

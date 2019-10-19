@@ -6,8 +6,7 @@ set(SOURCES
      networkSocketEventListenerTest.cpp
      MonitoredSubscriberTest.cpp
      monitoredpublishertest.cpp
-     eventparsertest.cpp
-     )
+    )
 
 add_executable( ${PROJECT_NAME} ${SOURCES} )
 
