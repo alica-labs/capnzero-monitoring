@@ -11,7 +11,7 @@
 class MonitoredSubscriber
 {
 public:
-  MonitoredSubscriber(void* zmqContext, capnzero::Protocol protocol, EventListener* listener);
+  MonitoredSubscriber(const std::string& id, void* zmqContext, capnzero::Protocol protocol, EventListener* listener);
 
   ~MonitoredSubscriber();
 
@@ -34,6 +34,7 @@ public:
   }
 
 private:
+  std::string id;
   capnzero::Subscriber subscriber;
   EventListener *eventListener;
   std::vector<MonitoredCallback*> messageCallback;

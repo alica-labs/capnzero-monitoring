@@ -1,15 +1,12 @@
-#include <capnzero-base-msgs/string.capnp.h>
-#include <complexmonitoredcallback.h>
 #include <event/createevent.h>
 #include "simplemonitoredcallback.h"
 #include "monitoredsubscriber.h"
-#include "relayeventproxy.h"
 #include "event/topicevent.h"
 #include "event/addressevent.h"
 #include "event/subscribeevent.h"
 
-MonitoredSubscriber::MonitoredSubscriber(void* zmqContext, capnzero::Protocol protocol, EventListener* listener) :
-  subscriber(zmqContext, protocol), eventListener(listener)
+MonitoredSubscriber::MonitoredSubscriber(const std::string& id, void* zmqContext, capnzero::Protocol protocol, EventListener* listener) :
+  subscriber(zmqContext, protocol), eventListener(listener), id(id)
 {
   CreateEvent event(protocol);
   eventListener->notify(event);

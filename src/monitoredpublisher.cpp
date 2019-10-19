@@ -5,8 +5,9 @@
 #include <event/addressevent.h>
 #include <event/createevent.h>
 
-MonitoredPublisher::MonitoredPublisher(void* zmqContext, capnzero::Protocol protocol, EventListener* listener):
-  publisher(zmqContext, protocol), eventListener(listener)
+MonitoredPublisher::MonitoredPublisher(const std::string& id, void* zmqContext, capnzero::Protocol protocol,
+                                       EventListener* listener) :
+                                       publisher(zmqContext, protocol), eventListener(listener), id(id)
 {
   CreateEvent event(protocol);
   eventListener->notify(event);

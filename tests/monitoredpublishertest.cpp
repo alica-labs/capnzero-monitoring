@@ -11,7 +11,7 @@ TEST(PublisherTest, singleMessageSending)
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(3);
 
-  MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, listener);
+  MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, listener);
   publisher.addAddress("127.0.0.1:7890");
   publisher.send("this is a message", "newgroup");
 
@@ -25,7 +25,7 @@ TEST(PublisherTest, multipleMessageSending)
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(7);
 
-  MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, listener);
+  MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, listener);
   publisher.addAddress("127.0.0.1:7890");
   publisher.send("this is a message1", "newgroup");
   publisher.send("this is a message2", "newgroup");

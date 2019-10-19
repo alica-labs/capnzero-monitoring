@@ -37,7 +37,7 @@ TEST(MonitoredSubscriberTest, connectAndSubscribeAreNotified)
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(4);
 
-  MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, listener);
+  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP, listener);
   subscriber.addAddress("127.0.0.1:7890");
   subscriber.setTopic("newgroup");
   subscriber.subscribe(&subscriberCallback);
@@ -56,12 +56,12 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
 
   MockEventListener *pubListener = new MockEventListener();
 
-  MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, subListener);
+  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP, subListener);
   subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&subscriberCallback);
 
-  MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, pubListener);
+  MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, pubListener);
   publisher.addAddress(address);
   publisher.send("Message", topic);
 
@@ -80,10 +80,10 @@ TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
 
   MockEventListener *pubListener = new MockEventListener();
 
-  MonitoredPublisher publisher(zmqContext, capnzero::Protocol::UDP, pubListener);
+  MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, pubListener);
   publisher.addAddress(address);
 
-  MonitoredSubscriber subscriber(zmqContext, capnzero::Protocol::UDP, subListener);
+  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP, subListener);
   subscriber.addAddress(address);
   subscriber.setTopic(topic);
 
