@@ -11,7 +11,7 @@
 class MonitoredSubscriber
 {
 public:
-  MonitoredSubscriber(void* zmqContext, capnzero::Protocol protocol, EventListener* listener);
+  MonitoredSubscriber(const std::string& id, void* zmqContext, capnzero::Protocol protocol, EventListener* listener);
 
   ~MonitoredSubscriber();
 
@@ -24,16 +24,17 @@ public:
   template <typename CallbackObjectType>
   void subscribe(void (CallbackObjectType::*callbackFunction)(capnp::FlatArrayMessageReader&), CallbackObjectType* callbackObject)
   {
-    MonitoredCallback* currentCallback = new ComplexMonitoredCallback<CallbackObjectType>(eventListener, callbackFunction, callbackObject);
+    MonitoredCallback* currentCallback = new ComplexMonitoredCallback<CallbackObjectType>(id, eventListener, callbackFunction, callbackObject);
     messageCallback.push_back(currentCallback);
 
-    SubscribeEvent event;
+    SubscribeEvent event(id);
     eventListener->notify(event);
 
     subscriber.subscribe(&MonitoredCallback::monitoredFunction, currentCallback);
   }
 
 private:
+  std::string id;
   capnzero::Subscriber subscriber;
   EventListener *eventListener;
   std::vector<MonitoredCallback*> messageCallback;

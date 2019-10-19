@@ -9,8 +9,7 @@ public:
 
   virtual const std::string toYaml() const = 0;
 
-  virtual void parse(const std::string& yamlSerializedEvent) = 0;
-
 protected:
   std::string type;
+  std::string id;
 };

@@ -5,10 +5,11 @@
 #include <event/addressevent.h>
 #include <event/createevent.h>
 
-MonitoredPublisher::MonitoredPublisher(void* zmqContext, capnzero::Protocol protocol, EventListener* listener):
-  publisher(zmqContext, protocol), eventListener(listener)
+MonitoredPublisher::MonitoredPublisher(const std::string& id, void* zmqContext, capnzero::Protocol protocol,
+                                       EventListener* listener) :
+                                       publisher(zmqContext, protocol), eventListener(listener), id(id)
 {
-  CreateEvent event(protocol);
+  CreateEvent event(id, protocol);
   eventListener->notify(event);
 }
 
@@ -21,7 +22,7 @@ void MonitoredPublisher::addAddress(const std::string& address)
 {
   publisher.addAddress(address);
 
-  AddressEvent event(address);
+  AddressEvent event(id, address);
   eventListener->notify(event);
 }
 
@@ -31,7 +32,7 @@ void MonitoredPublisher::send(const std::string& message, const std::string& top
   capnzero::String::Builder messageBuilder = builder.initRoot<capnzero::String>();
   messageBuilder.setString(message);
 
-  SendEvent event(message, topic);
+  SendEvent event(id, message, topic);
   eventListener->notify(event);
 
   publisher.send(builder, topic);

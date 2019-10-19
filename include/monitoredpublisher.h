@@ -6,7 +6,7 @@
 class MonitoredPublisher
 {
 public:
-  explicit MonitoredPublisher(void* zmqContext, capnzero::Protocol protocol, EventListener* listener);
+  explicit MonitoredPublisher(const std::string& id, void* zmqContext, capnzero::Protocol protocol, EventListener* listener);
 
   ~MonitoredPublisher();
 
@@ -17,4 +17,5 @@ public:
 private:
   capnzero::Publisher publisher;
   EventListener* eventListener;
+  std::string id;
 };

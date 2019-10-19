@@ -10,7 +10,7 @@ int main(int argc, const char* argv[])
   void* ctx = zmq_ctx_new();
   EventProxy *proxy = new RelayEventProxy(ctx);
   EventListener* eventListener = new NetworkSocketEventListener(proxy);
-  MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, eventListener);
+  MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP, eventListener);
 
   publisher.addAddress("127.0.0.1:7890");
 
@@ -25,6 +25,4 @@ int main(int argc, const char* argv[])
 
     std::this_thread::sleep_for(std::chrono::seconds(3));
   }
-
-  return 0;
 }

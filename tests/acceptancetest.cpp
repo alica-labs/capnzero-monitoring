@@ -6,8 +6,6 @@
 #include <monitoredsubscriber.h>
 #include <tests/mocks/mockeventlistener.h>
 #include <networksocketeventlistener.h>
-#include <relayeventproxy.h>
-#include <event/yamleventparser.h>
 #include <capnzero-base-msgs/string.capnp.h>
 
 void callback(capnp::FlatArrayMessageReader& reader)
@@ -29,12 +27,12 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   MockEventListener *pubListener = new MockEventListener();
   EXPECT_CALL(*pubListener, notify).Times(3);
 
-  MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, subListener);
+  MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP, subListener);
   subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
 
-  MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
+  MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP, pubListener);
   publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
@@ -52,7 +50,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   EXPECT_CALL(*proxy, notifyClient).Times(5);
 
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
-  MonitoredSubscriber subscriber(ctx, capnzero::Protocol::UDP, listener);
+  MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP, listener);
   subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
@@ -61,7 +59,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   EXPECT_CALL(*pubProxy, notifyClient).Times(3);
 
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
-  MonitoredPublisher publisher(ctx, capnzero::Protocol::UDP, pubListener);
+  MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP, pubListener);
   publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
