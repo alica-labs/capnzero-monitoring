@@ -2,10 +2,10 @@ cmake_minimum_required( VERSION 3.13 )
 project( capnzero-monitoring-test )
 
 set(SOURCES
-     test.cpp
-     networkSocketEventListenerTest.cpp
-     MonitoredSubscriberTest.cpp
-     monitoredpublishertest.cpp
+      acceptancetest.cpp
+      eventlistenertest.cpp
+      monitoredsubscribertest.cpp
+      monitoredpublishertest.cpp
     )
 
 add_executable( ${PROJECT_NAME} ${SOURCES} )
