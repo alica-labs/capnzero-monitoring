@@ -12,6 +12,10 @@ public:
 
   void addAddress(const std::string& address);
 
+  void setDefaultTopic(const std::string& topic);
+
+  void send(const std::string& message);
+
   void send(const std::string& message, const std::string& topic);
 
 private:
