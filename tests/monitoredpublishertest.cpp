@@ -9,7 +9,7 @@ TEST(PublisherTest, singleMessageSending)
   void* zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(3);
+  EXPECT_CALL(*listener, notify).Times(4);
 
   MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, listener);
   publisher.addAddress("127.0.0.1:7890");
@@ -23,7 +23,7 @@ TEST(PublisherTest, multipleMessageSending)
   void* zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(7);
+  EXPECT_CALL(*listener, notify).Times(12);
 
   MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, listener);
   publisher.addAddress("127.0.0.1:7890");
