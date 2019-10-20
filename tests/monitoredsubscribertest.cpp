@@ -55,6 +55,7 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   EXPECT_CALL(*subListener, notify).Times(5);
 
   MockEventListener *pubListener = new MockEventListener();
+  EXPECT_CALL(*pubListener, notify).Times(4);
 
   MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP, subListener);
   subscriber.addAddress(address);
@@ -79,6 +80,7 @@ TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
   EXPECT_CALL(*subListener, notify).Times(5);
 
   MockEventListener *pubListener = new MockEventListener();
+  EXPECT_CALL(*pubListener, notify).Times(4);
 
   MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, pubListener);
   publisher.addAddress(address);

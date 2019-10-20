@@ -4,6 +4,7 @@
 #include <event/sendevent.h>
 #include <event/addressevent.h>
 #include <event/createevent.h>
+#include <include/event/topicevent.h>
 
 MonitoredPublisher::MonitoredPublisher(const std::string& id, void* zmqContext, capnzero::Protocol protocol,
                                        EventListener* listener) :
@@ -32,7 +33,10 @@ void MonitoredPublisher::send(const std::string& message, const std::string& top
   capnzero::String::Builder messageBuilder = builder.initRoot<capnzero::String>();
   messageBuilder.setString(message);
 
-  SendEvent event(id, message, topic);
+  TopicEvent topicEvent(id, topic);
+  eventListener->notify(topicEvent);
+
+  SendEvent event(id, message);
   eventListener->notify(event);
 
   publisher.send(builder, topic);

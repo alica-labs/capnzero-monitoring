@@ -25,7 +25,7 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   EXPECT_CALL(*subListener, notify).Times(5);
 
   MockEventListener *pubListener = new MockEventListener();
-  EXPECT_CALL(*pubListener, notify).Times(3);
+  EXPECT_CALL(*pubListener, notify).Times(4);
 
   MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP, subListener);
   subscriber.addAddress(address);
@@ -56,7 +56,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   subscriber.subscribe(&callback);
 
   MockEventProxy *pubProxy = new MockEventProxy();
-  EXPECT_CALL(*pubProxy, notifyClient).Times(3);
+  EXPECT_CALL(*pubProxy, notifyClient).Times(4);
 
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
   MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP, pubListener);
