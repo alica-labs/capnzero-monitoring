@@ -6,20 +6,22 @@
 class MonitoredPublisher
 {
 public:
-  explicit MonitoredPublisher(const std::string& id, void* zmqContext, capnzero::Protocol protocol, EventListener* listener);
+  explicit MonitoredPublisher(const std::string &id, void *zmqContext, capnzero::Protocol protocol);
 
-  ~MonitoredPublisher();
+  void addAddress(const std::string &address);
 
-  void addAddress(const std::string& address);
+  void attachEventListener(EventListener *listener);
 
-  void setDefaultTopic(const std::string& topic);
+  void setDefaultTopic(const std::string &topic);
 
-  void send(const std::string& message);
+  void send(const std::string &message);
 
-  void send(const std::string& message, const std::string& topic);
+  void send(const std::string &message, const std::string &topic);
 
 private:
   capnzero::Publisher publisher;
-  EventListener* eventListener;
+  std::vector<EventListener *> eventListeners;
   std::string id;
+
+  void notifyListeners(Event &event) const;
 };

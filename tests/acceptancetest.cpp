@@ -8,7 +8,7 @@
 #include <networksocketeventlistener.h>
 #include <capnzero-base-msgs/string.capnp.h>
 
-void callback(capnp::FlatArrayMessageReader& reader)
+void callback(capnp::FlatArrayMessageReader &reader)
 {
   std::cout << "Called callback..." << std::endl;
   const std::string message = reader.getRoot<capnzero::String>().getString();
@@ -17,9 +17,9 @@ void callback(capnp::FlatArrayMessageReader& reader)
 
 TEST(CombinationTest, publishSubscribeIsMonitored)
 {
-  void* ctx = zmq_ctx_new();
-  const std::string topic {"group"};
-  const std::string address {"127.0.0.1:7890"};
+  void *ctx = zmq_ctx_new();
+  const std::string topic{"group"};
+  const std::string address{"127.0.0.1:7890"};
 
   MockEventListener *subListener = new MockEventListener();
   EXPECT_CALL(*subListener, notify).Times(5);
@@ -32,19 +32,19 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
 
-  MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP, pubListener);
+  MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP);
+  publisher.attachEventListener(pubListener);
   publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 
-
 TEST(CombinationTest, testSinglePublishSubscribe)
 {
-  void* ctx = zmq_ctx_new();
-  const std::string topic {"group"};
-  const std::string address {"127.0.0.1:7890"};
+  void *ctx = zmq_ctx_new();
+  const std::string topic{"group"};
+  const std::string address{"127.0.0.1:7890"};
 
   MockEventProxy *proxy = new MockEventProxy();
   EXPECT_CALL(*proxy, notifyClient).Times(5);
@@ -59,7 +59,8 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   EXPECT_CALL(*pubProxy, notifyClient).Times(4);
 
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
-  MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP, pubListener);
+  MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP);
+  publisher.attachEventListener(pubListener);
   publisher.addAddress(address);
   publisher.send("This message should reach subscriber", topic);
 

@@ -39,8 +39,6 @@ endif()
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
-message(STATUS "collected sources ${SOURCES}")
-
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_include_directories(${PROJECT_NAME}

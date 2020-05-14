@@ -6,12 +6,13 @@
 
 TEST(PublisherTest, singleMessageSending)
 {
-  void* zmqContext = zmq_ctx_new();
+  void *zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(4);
 
-  MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, listener);
+  MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP);
+  publisher.attachEventListener(listener);
   publisher.addAddress("127.0.0.1:7890");
   publisher.send("this is a message", "newgroup");
 
@@ -20,12 +21,13 @@ TEST(PublisherTest, singleMessageSending)
 
 TEST(PublisherTest, multipleMessageSending)
 {
-  void* zmqContext = zmq_ctx_new();
+  void *zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(12);
 
-  MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP, listener);
+  MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP);
+  publisher.attachEventListener(listener);
   publisher.addAddress("127.0.0.1:7890");
   publisher.send("this is a message1", "newgroup");
   publisher.send("this is a message2", "newgroup");
