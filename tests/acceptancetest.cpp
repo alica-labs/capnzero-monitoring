@@ -27,7 +27,8 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   MockEventListener *pubListener = new MockEventListener();
   EXPECT_CALL(*pubListener, notify).Times(4);
 
-  MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP, subListener);
+  MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP);
+  subscriber.attachEventListener(subListener);
   subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
@@ -38,6 +39,9 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  delete subListener;
+  delete pubListener;
 }
 
 TEST(CombinationTest, testSinglePublishSubscribe)
@@ -50,7 +54,8 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   EXPECT_CALL(*proxy, notifyClient).Times(5);
 
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
-  MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP, listener);
+  MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP);
+  subscriber.attachEventListener(listener);
   subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&callback);
@@ -65,4 +70,10 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   publisher.send("This message should reach subscriber", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+  delete pubListener;
+  delete listener;
+
+  delete proxy;
+  delete pubProxy;
 }

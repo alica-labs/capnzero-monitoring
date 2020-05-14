@@ -38,12 +38,15 @@ TEST(MonitoredSubscriberTest, connectAndSubscribeAreNotified)
   MockEventListener *listener = new MockEventListener();
   EXPECT_CALL(*listener, notify).Times(4);
 
-  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP, listener);
+  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP);
+  subscriber.attachEventListener(listener);
   subscriber.addAddress("127.0.0.1:7890");
   subscriber.setTopic("newgroup");
   subscriber.subscribe(&subscriberCallback);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  delete listener;
 }
 
 TEST(MonitoredSubscriberTest, singleMessageReceiving)
@@ -58,7 +61,8 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   MockEventListener *pubListener = new MockEventListener();
   EXPECT_CALL(*pubListener, notify).Times(4);
 
-  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP, subListener);
+  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP);
+  subscriber.attachEventListener(subListener);
   subscriber.addAddress(address);
   subscriber.setTopic(topic);
   subscriber.subscribe(&subscriberCallback);
@@ -69,6 +73,9 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   publisher.send("Message", topic);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  delete subListener;
+  delete pubListener;
 }
 
 TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
@@ -87,7 +94,8 @@ TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
   publisher.attachEventListener(pubListener);
   publisher.addAddress(address);
 
-  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP, subListener);
+  MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP);
+  subscriber.attachEventListener(subListener);
   subscriber.addAddress(address);
   subscriber.setTopic(topic);
 
@@ -99,5 +107,8 @@ TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
   ASSERT_EQ(callbackObject->counter, 1);
+
+  delete subListener;
+  delete pubListener;
   delete callbackObject;
 }

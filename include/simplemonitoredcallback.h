@@ -3,18 +3,20 @@
 #include <eventlistener.h>
 #include <monitoredcallback.h>
 #include <functional>
+#include <vector>
 
 class SimpleMonitoredCallback : public MonitoredCallback
 {
 public:
-  SimpleMonitoredCallback(const std::string& id, EventListener* eventListener,
-                          std::function<void(capnp::FlatArrayMessageReader&)> callback);
+  SimpleMonitoredCallback(const std::string &id, std::vector<EventListener *> &eventListeners,
+                          std::function<void(capnp::FlatArrayMessageReader &)> callback);
 
-  void monitoredFunction(capnp::FlatArrayMessageReader& reader) override;
+  void monitoredFunction(capnp::FlatArrayMessageReader &reader) override;
 
 private:
-  EventListener *eventListener;
-  std::function<void (::capnp::FlatArrayMessageReader&)> callback;
+  std::vector<EventListener *> eventListeners;
+  std::function<void(::capnp::FlatArrayMessageReader &)> callback;
   std::string id;
-};
 
+  void notifyEventListeners(Event &event) const;
+};

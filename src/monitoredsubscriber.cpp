@@ -5,48 +5,57 @@
 #include "event/addressevent.h"
 #include "event/subscribeevent.h"
 
-MonitoredSubscriber::MonitoredSubscriber(const std::string& id, void* zmqContext, capnzero::Protocol protocol, EventListener* listener) :
-  subscriber(zmqContext, protocol), eventListener(listener), id(id)
+MonitoredSubscriber::MonitoredSubscriber(const std::string &id, void *zmqContext, capnzero::Protocol protocol)
+    : subscriber(zmqContext, protocol), id(id)
 {
   CreateEvent event(id, protocol);
-  eventListener->notify(event);
+  notifyEventListeners(event);
 }
 
 MonitoredSubscriber::~MonitoredSubscriber()
 {
-  for(auto callback : messageCallback)
+  for (auto callback : messageCallback)
   {
-   delete callback;
+    delete callback;
   }
-
-  delete eventListener;
 }
 
-void MonitoredSubscriber::setTopic(const std::string& topic)
+void MonitoredSubscriber::attachEventListener(EventListener *listener)
+{
+  eventListeners.push_back(listener);
+}
+
+void MonitoredSubscriber::notifyEventListeners(Event &event) const
+{
+  for (EventListener *listener : eventListeners)
+  {
+    listener->notify(event);
+  }
+}
+
+void MonitoredSubscriber::setTopic(const std::string &topic)
 {
   TopicEvent event(id, topic);
-  eventListener->notify(event);
+  notifyEventListeners(event);
 
   subscriber.setTopic(topic);
 }
 
-void MonitoredSubscriber::addAddress(const std::string& address)
+void MonitoredSubscriber::addAddress(const std::string &address)
 {
   subscriber.addAddress(address);
 
   AddressEvent event(id, address);
-  eventListener->notify(event);
+  notifyEventListeners(event);
 }
 
-void MonitoredSubscriber::subscribe(void (* callback)(capnp::FlatArrayMessageReader&))
+void MonitoredSubscriber::subscribe(void (*callback)(capnp::FlatArrayMessageReader &))
 {
-  MonitoredCallback* currentCallback = new SimpleMonitoredCallback(id, eventListener, callback);
+  MonitoredCallback *currentCallback = new SimpleMonitoredCallback(id, eventListeners, callback);
   messageCallback.push_back(currentCallback);
 
   SubscribeEvent event(id);
-  eventListener->notify(event);
+  notifyEventListeners(event);
 
   subscriber.subscribe(&MonitoredCallback::monitoredFunction, currentCallback);
 }
-
-
