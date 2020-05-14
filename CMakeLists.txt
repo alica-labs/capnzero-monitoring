@@ -37,21 +37,9 @@ else()
   set(CAPNZERO_LIBRARIES capnzero capnzero-base-msgs)
 endif()
 
-set(SOURCES
-     src/monitoredpublisher.cpp
-     src/networksocketeventlistener.cpp
-     src/monitoredsubscriber.cpp
-     src/simplemonitoredcallback.cpp
-     src/relayeventproxy.cpp
-     src/event/topicevent.cpp
-     src/event/sendevent.cpp
-     src/event/subscribeevent.cpp
-     src/event/receiveevent.cpp
-     src/event/createevent.cpp
-     src/event/addressevent.cpp
-     src/exception/unknowneventexception.cpp
-     src/config/monitorconfiguration.cpp
-     )
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+
+message(STATUS "collected sources ${SOURCES}")
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
