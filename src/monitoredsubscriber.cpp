@@ -1,15 +1,13 @@
 #include <event/createevent.h>
-#include "simplemonitoredcallback.h"
-#include "monitoredsubscriber.h"
-#include "event/topicevent.h"
-#include "event/addressevent.h"
-#include "event/subscribeevent.h"
+#include <simplemonitoredcallback.h>
+#include <monitoredsubscriber.h>
+#include <event/topicevent.h>
+#include <event/addressevent.h>
+#include <event/subscribeevent.h>
 
 MonitoredSubscriber::MonitoredSubscriber(const std::string &id, void *zmqContext, capnzero::Protocol protocol)
     : subscriber(zmqContext, protocol), id(id)
 {
-  CreateEvent event(id, protocol);
-  notifyEventListeners(event);
 }
 
 MonitoredSubscriber::~MonitoredSubscriber()

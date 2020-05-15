@@ -1,5 +1,5 @@
 #include <networksocketeventlistener.h>
-#include <tests/mocks/mockeventproxy.h>
+#include <mockeventproxy.h>
 #include <event/sendevent.h>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
@@ -16,10 +16,12 @@ TEST(ListenerTest, testSimpleEvent)
   const std::string data{"this is an event!"};
   SendEvent event("0", "message");
 
-  MockEventProxy* proxy = new MockEventProxy();
+  MockEventProxy *proxy = new MockEventProxy();
   EXPECT_CALL(*proxy, notifyClient(eventEquals(event)));
 
   NetworkSocketEventListener listener(proxy);
 
   listener.notify(event);
+
+  delete proxy;
 }

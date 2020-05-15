@@ -6,7 +6,7 @@ AddressEvent::AddressEvent()
   type = "address";
 }
 
-AddressEvent::AddressEvent(const std::string& id, const std::string& address) : address{address}
+AddressEvent::AddressEvent(const std::string &id, const std::string &address) : address{address}
 {
   this->id = id;
   type = "address";

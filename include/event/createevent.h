@@ -8,7 +8,7 @@ class CreateEvent : public Event
 public:
   CreateEvent();
 
-  CreateEvent(const std::string& id, capnzero::Protocol protocol);
+  CreateEvent(const std::string &id, capnzero::Protocol protocol);
 
   const std::string toYaml() const;
 

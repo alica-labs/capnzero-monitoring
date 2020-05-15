@@ -6,22 +6,22 @@ set(SOURCES
       eventlistenertest.cpp
       monitoredsubscribertest.cpp
       monitoredpublishertest.cpp
-    )
+)
 
-add_executable( ${PROJECT_NAME} ${SOURCES} )
+add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_include_directories( ${PROJECT_NAME}
-                              PRIVATE
-                                ${CMAKE_CURRENT_SOURCE_DIR}/../include
-                                ${CMAKE_CURRENT_SOURCE_DIR}/mocks
-                                ${CMAKE_CURRENT_SOURCE_DIR}/../submodules/capnzero/capnzero/include)
+target_include_directories(${PROJECT_NAME}
+                            PUBLIC
+                              ${CMAKE_CURRENT_SOURCE_DIR}/mocks
+                              $<TARGET_PROPERTY:capnzero-monitoring,INTERFACE_INCLUDE_DIRECTORIES>
+                              $<TARGET_PROPERTY:capnzero,INTERFACE_INCLUDE_DIRECTORIES>
+)
 
-target_link_libraries( ${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}
                         PRIVATE
                           CONAN_PKG::gtest
-                          capnp
-                          capnzero
                           capnzero-monitoring
-                          )
+                          capnzero
+)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)

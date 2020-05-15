@@ -9,7 +9,7 @@ TEST(PublisherTest, singleMessageSending)
   void *zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(4);
+  EXPECT_CALL(*listener, notify).Times(3);
 
   MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP);
   publisher.attachEventListener(listener);
@@ -17,6 +17,8 @@ TEST(PublisherTest, singleMessageSending)
   publisher.send("this is a message", "newgroup");
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  delete listener;
 }
 
 TEST(PublisherTest, multipleMessageSending)
@@ -24,7 +26,7 @@ TEST(PublisherTest, multipleMessageSending)
   void *zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(12);
+  EXPECT_CALL(*listener, notify).Times(11);
 
   MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP);
   publisher.attachEventListener(listener);
@@ -36,4 +38,6 @@ TEST(PublisherTest, multipleMessageSending)
   publisher.send("this is a message5", "newgroup");
 
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  delete listener;
 }

@@ -4,13 +4,11 @@
 #include <event/sendevent.h>
 #include <event/addressevent.h>
 #include <event/createevent.h>
-#include <include/event/topicevent.h>
+#include <event/topicevent.h>
 
 MonitoredPublisher::MonitoredPublisher(const std::string &id, void *zmqContext, capnzero::Protocol protocol)
     : publisher(zmqContext, protocol), id(id)
 {
-  CreateEvent event(id, protocol);
-  notifyListeners(event);
 }
 
 void MonitoredPublisher::addAddress(const std::string &address)

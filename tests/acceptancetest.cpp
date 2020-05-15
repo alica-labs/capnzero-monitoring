@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 #include <zmq.h>
 #include <mockeventproxy.h>
+#include <mockeventlistener.h>
 #include <thread>
 #include <monitoredpublisher.h>
 #include <monitoredsubscriber.h>
-#include <tests/mocks/mockeventlistener.h>
 #include <networksocketeventlistener.h>
 #include <capnzero-base-msgs/string.capnp.h>
 
@@ -22,10 +22,10 @@ TEST(CombinationTest, publishSubscribeIsMonitored)
   const std::string address{"127.0.0.1:7890"};
 
   MockEventListener *subListener = new MockEventListener();
-  EXPECT_CALL(*subListener, notify).Times(5);
+  EXPECT_CALL(*subListener, notify).Times(4);
 
   MockEventListener *pubListener = new MockEventListener();
-  EXPECT_CALL(*pubListener, notify).Times(4);
+  EXPECT_CALL(*pubListener, notify).Times(3);
 
   MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP);
   subscriber.attachEventListener(subListener);
@@ -51,7 +51,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   const std::string address{"127.0.0.1:7890"};
 
   MockEventProxy *proxy = new MockEventProxy();
-  EXPECT_CALL(*proxy, notifyClient).Times(5);
+  EXPECT_CALL(*proxy, notifyClient).Times(4);
 
   NetworkSocketEventListener *listener = new NetworkSocketEventListener(proxy);
   MonitoredSubscriber subscriber("1", ctx, capnzero::Protocol::UDP);
@@ -61,7 +61,7 @@ TEST(CombinationTest, testSinglePublishSubscribe)
   subscriber.subscribe(&callback);
 
   MockEventProxy *pubProxy = new MockEventProxy();
-  EXPECT_CALL(*pubProxy, notifyClient).Times(4);
+  EXPECT_CALL(*pubProxy, notifyClient).Times(3);
 
   NetworkSocketEventListener *pubListener = new NetworkSocketEventListener(pubProxy);
   MonitoredPublisher publisher("0", ctx, capnzero::Protocol::UDP);

@@ -4,7 +4,7 @@
 #include <zmq.h>
 #include <monitoredsubscriber.h>
 #include <capnzero-base-msgs/string.capnp.h>
-#include <tests/mocks/mockeventlistener.h>
+#include <mockeventlistener.h>
 
 class MyComplexCallback
 {
@@ -36,7 +36,7 @@ TEST(MonitoredSubscriberTest, connectAndSubscribeAreNotified)
   void *zmqContext = zmq_ctx_new();
 
   MockEventListener *listener = new MockEventListener();
-  EXPECT_CALL(*listener, notify).Times(4);
+  EXPECT_CALL(*listener, notify).Times(3);
 
   MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP);
   subscriber.attachEventListener(listener);
@@ -56,10 +56,10 @@ TEST(MonitoredSubscriberTest, singleMessageReceiving)
   const std::string topic{"newgroup"};
 
   MockEventListener *subListener = new MockEventListener();
-  EXPECT_CALL(*subListener, notify).Times(5);
+  EXPECT_CALL(*subListener, notify).Times(4);
 
   MockEventListener *pubListener = new MockEventListener();
-  EXPECT_CALL(*pubListener, notify).Times(4);
+  EXPECT_CALL(*pubListener, notify).Times(3);
 
   MonitoredSubscriber subscriber("1", zmqContext, capnzero::Protocol::UDP);
   subscriber.attachEventListener(subListener);
@@ -85,10 +85,10 @@ TEST(MonitoredSubscriberTest, singleMessageReceivingWithComplexCallback)
   const std::string topic{"newgroup"};
 
   MockEventListener *subListener = new MockEventListener();
-  EXPECT_CALL(*subListener, notify).Times(5);
+  EXPECT_CALL(*subListener, notify).Times(4);
 
   MockEventListener *pubListener = new MockEventListener();
-  EXPECT_CALL(*pubListener, notify).Times(4);
+  EXPECT_CALL(*pubListener, notify).Times(3);
 
   MonitoredPublisher publisher("0", zmqContext, capnzero::Protocol::UDP);
   publisher.attachEventListener(pubListener);

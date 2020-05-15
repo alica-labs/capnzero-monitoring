@@ -12,7 +12,8 @@ include(${CMAKE_BINARY_DIR}/conan.cmake)
 
 set(CONAN_REQUIREMENTS
     gtest/1.8.1@bincrafters/stable
-    yaml-cpp/0.6.2@bincrafters/stable)
+    yaml-cpp/0.6.2@bincrafters/stable
+)
 
 conan_cmake_run(REQUIRES ${CONAN_REQUIREMENTS}
                 BASIC_SETUP CMAKE_TARGETS
@@ -45,18 +46,28 @@ target_include_directories(${PROJECT_NAME}
                               PUBLIC
                                 ${CMAKE_CURRENT_SOURCE_DIR}/include
                                 ${CAPNZERO_INCLUDES}
-                              PRIVATE
-                                src
-                           )
+)
 
 target_link_libraries(${PROJECT_NAME}
                          PRIVATE
                           CONAN_PKG::yaml-cpp
-                          capnzero)
+                          capnzero
+)
 
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
-target_compile_options(${PROJECT_NAME} PRIVATE -fPIC)
-target_compile_definitions(${PROJECT_NAME} PRIVATE ZMQ_BUILD_DRAFT_API)
+target_compile_features(${PROJECT_NAME}
+                          PRIVATE 
+                            cxx_std_14
+)
+
+target_compile_options(${PROJECT_NAME}
+                          PRIVATE
+                             -fPIC
+)
+
+target_compile_definitions(${PROJECT_NAME}
+                            PRIVATE
+                              ZMQ_BUILD_DRAFT_API
+)
 
 add_subdirectory(tests)
 add_subdirectory(example)
