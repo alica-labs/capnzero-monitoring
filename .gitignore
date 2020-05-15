@@ -20,3 +20,4 @@ tests/CMakeFiles/
 tests/Makefile
 tests/cmake_install.cmake
 build
+.vscode

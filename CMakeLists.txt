@@ -43,12 +43,8 @@ add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_include_directories(${PROJECT_NAME}
                               PUBLIC
-                                $<INSTALL_INTERFACE:
-                                  ${CMAKE_CURRENT_SOURCE_DIR}/include>
-                                $<BUILD_INTERFACE:
-                                  ${CMAKE_CURRENT_SOURCE_DIR}/include
-                                  ${CMAKE_CURRENT_SOURCE_DIR}/src
-                                  ${CAPNZERO_INCLUDES}
+                                ${CMAKE_CURRENT_SOURCE_DIR}/include
+                                ${CAPNZERO_INCLUDES}
                               PRIVATE
                                 src
                            )
